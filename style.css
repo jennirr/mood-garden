@@ -6,8 +6,10 @@ body {
   margin: 0;
 
   font-family:
+    "SF Pro Rounded",
+    "Arial Rounded MT Bold",
+    "Trebuchet MS",
     Arial,
-    Helvetica,
     sans-serif;
 
   background: #f4f2ea;
@@ -20,10 +22,11 @@ input {
 }
 
 .page {
-  width: min(
-    1320px,
-    calc(100% - 48px)
-  );
+  width:
+    min(
+      1320px,
+      calc(100% - 48px)
+    );
 
   margin: 0 auto;
 
@@ -35,7 +38,7 @@ input {
 
 
 /* =========================
-   INTRO
+   HEADER
 ========================= */
 
 .intro {
@@ -46,6 +49,7 @@ input {
   margin: 0 0 14px;
 
   font-size: 12px;
+  font-weight: 600;
 
   letter-spacing: 0.22em;
 
@@ -62,9 +66,11 @@ h1 {
       82px
     );
 
-  font-weight: 500;
+  font-weight: 600;
 
-  letter-spacing: -0.05em;
+  line-height: 1;
+
+  letter-spacing: -0.035em;
 }
 
 .description {
@@ -81,7 +87,7 @@ h1 {
 
 
 /* =========================
-   GARDEN SECTION
+   GARDEN
 ========================= */
 
 .garden-section {
@@ -96,11 +102,6 @@ h1 {
   background: #faf9f4;
 }
 
-
-/* =========================
-   GARDEN
-========================= */
-
 .garden {
   position: relative;
 
@@ -111,12 +112,11 @@ h1 {
   background:
     linear-gradient(
       to bottom,
-      #f8f5f1 0%,
-      #f5f2ea 58%,
-      #e6ebdd 100%
+      #faf7f2 0%,
+      #f6f2ea 60%,
+      #e7ecdf 100%
     );
 }
-
 
 .sun-glow {
   position: absolute;
@@ -137,14 +137,14 @@ h1 {
       circle,
       rgba(
         255,
-        243,
-        208,
-        0.78
+        241,
+        204,
+        0.68
       ),
       rgba(
         255,
-        243,
-        208,
+        241,
+        204,
         0
       )
     );
@@ -182,12 +182,12 @@ h1 {
   left: -10%;
   bottom: -72px;
 
-  background: #cbd8bf;
+  background: #cad7bf;
 }
 
 
 /* =========================
-   EMPTY STATE
+   EMPTY
 ========================= */
 
 .empty-message {
@@ -207,8 +207,7 @@ h1 {
   color: #999c94;
 
   transition:
-    opacity
-    0.35s ease;
+    opacity 0.35s ease;
 }
 
 .empty-message span {
@@ -217,6 +216,7 @@ h1 {
   margin-bottom: 8px;
 
   font-size: 20px;
+  font-weight: 600;
 
   color: #7b8178;
 }
@@ -244,14 +244,14 @@ h1 {
 
 
 /* =========================
-   BASE PLANT
+   UNIFIED PLANT
 ========================= */
 
 .garden-plant {
   position: absolute;
 
-  width: 120px;
-  height: 250px;
+  width: 125px;
+  height: 240px;
 
   transform:
     translateX(-50%)
@@ -265,17 +265,16 @@ h1 {
 
   animation:
     growIn
-    0.8s
+    0.7s
     cubic-bezier(
       0.34,
-      1.56,
+      1.4,
       0.64,
       1
     );
 }
 
-
-.plant-inner {
+.plant-motion {
   position: absolute;
 
   width: 100%;
@@ -288,7 +287,7 @@ h1 {
     bottom;
 
   animation:
-    sway
+    moodSway
     var(--sway-speed)
     ease-in-out
     infinite;
@@ -296,841 +295,352 @@ h1 {
 
 
 /* =========================
-   STEM BASE
+   STEM
 ========================= */
 
 .stem {
   position: absolute;
 
+  width: 8px;
+
+  height:
+    calc(
+      118px
+      +
+      var(--growth-level)
+      *
+      13px
+    );
+
   left: 50%;
   bottom: 0;
 
   transform:
-    translateX(-50%);
-
-  background:
-    var(--stem);
+    translateX(-50%)
+    rotate(
+      var(--lean)
+    );
 
   transform-origin:
     center
     bottom;
-}
 
-
-/* =========================
-   LEAF BASE
-========================= */
-
-.leaf {
-  position: absolute;
-
-  display: block;
+  border-radius: 999px;
 
   background:
-    var(--leaf);
+    var(--stem);
 }
 
 
 /* =========================
-   FLOWER BASE
+   FLOWER
 ========================= */
 
 .flower {
   position: absolute;
+
+  width: 82px;
+  height: 82px;
+
+  left: 50%;
+  top: -62px;
+
+  transform:
+    translateX(-50%)
+    scale(
+      var(--flower-scale)
+    );
 }
 
 .petal {
   position: absolute;
 
-  display: block;
+  width: 31px;
+  height: 42px;
+
+  left: 50%;
+  top: 50%;
+
+  transform-origin:
+    50%
+    100% !important;
+
+  border-radius:
+    70%
+    70%
+    48%
+    48%;
 
   background:
     var(--flower);
 }
 
-.flower-center {
+.flower i {
   position: absolute;
+
+  width: 28px;
+  height: 28px;
+
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
   border-radius: 50%;
 
   background:
     var(--center);
+
+  z-index: 2;
 }
 
 
-/* ==========================================
-   CALM
-   Rounded / symmetrical / slow
-========================================== */
+/* =========================
+   LEAVES
+========================= */
 
-.calm-stem {
-  width: 7px;
+.leaf {
+  position: absolute;
 
-  height:
-    calc(
-      160px +
-      var(--height-extra)
-    );
-
-  border-radius: 999px;
-}
-
-
-.calm-flower {
-  width: 78px;
-  height: 78px;
-
-  top: -34px;
-  left: 50%;
-
-  transform:
-    translateX(-50%)
-    scale(
-      var(--flower-extra)
-    );
-}
-
-
-.calm-flower .petal {
-  width: 34px;
-  height: 42px;
-
-  border-radius:
-    60% 60% 52% 52%;
-}
-
-
-.calm-flower .p1 {
-  top: 0;
-  left: 22px;
-}
-
-.calm-flower .p2 {
-  top: 20px;
-  right: 2px;
-
-  transform:
-    rotate(72deg);
-}
-
-.calm-flower .p3 {
-  bottom: 0;
-  right: 11px;
-
-  transform:
-    rotate(145deg);
-}
-
-.calm-flower .p4 {
-  bottom: 0;
-  left: 11px;
-
-  transform:
-    rotate(-145deg);
-}
-
-.calm-flower .p5 {
-  top: 20px;
-  left: 2px;
-
-  transform:
-    rotate(-72deg);
-}
-
-
-.calm-flower .flower-center {
-  width: 27px;
-  height: 27px;
-
-  left: 25px;
-  top: 25px;
-}
-
-
-.calm-leaf {
-  width: 48px;
+  width: 54px;
   height: 30px;
-
-  border-radius:
-    70%
-    30%
-    70%
-    30%;
-}
-
-
-.calm-leaf.left {
-  left: -43px;
-  top: 63%;
-
-  transform:
-    rotate(14deg);
-}
-
-
-.calm-leaf.right {
-  right: -43px;
-  top: 46%;
-
-  transform:
-    rotate(-14deg);
-}
-
-
-/* ==========================================
-   HAPPY
-   Large open flower / upward leaves
-========================================== */
-
-.happy-stem {
-  width: 8px;
-
-  height:
-    calc(
-      155px +
-      var(--height-extra)
-    );
-
-  border-radius: 999px;
-}
-
-
-.happy-flower {
-  width: 96px;
-  height: 96px;
-
-  top: -44px;
-  left: 50%;
-
-  transform:
-    translateX(-50%)
-    scale(
-      calc(
-        var(--flower-extra)
-        * 1.08
-      )
-    );
-}
-
-
-.happy-flower .petal {
-  width: 43px;
-  height: 47px;
-
-  border-radius:
-    65%
-    65%
-    48%
-    48%;
-}
-
-
-.happy-flower .p1 {
-  top: 0;
-  left: 27px;
-}
-
-.happy-flower .p2 {
-  top: 13px;
-  right: 7px;
-
-  transform:
-    rotate(60deg);
-}
-
-.happy-flower .p3 {
-  bottom: 8px;
-  right: 7px;
-
-  transform:
-    rotate(120deg);
-}
-
-.happy-flower .p4 {
-  bottom: 0;
-  left: 27px;
-
-  transform:
-    rotate(180deg);
-}
-
-.happy-flower .p5 {
-  bottom: 8px;
-  left: 7px;
-
-  transform:
-    rotate(-120deg);
-}
-
-.happy-flower .p6 {
-  top: 13px;
-  left: 7px;
-
-  transform:
-    rotate(-60deg);
-}
-
-
-.happy-flower .flower-center {
-  width: 32px;
-  height: 32px;
-
-  top: 32px;
-  left: 32px;
-}
-
-
-.happy-leaf {
-  width: 58px;
-  height: 31px;
 
   border-radius:
     75%
     18%
     75%
     18%;
+
+  background:
+    var(--leaf);
 }
 
-
-.happy-leaf.left {
-  left: -48px;
-  top: 58%;
-
-  transform:
-    rotate(-12deg);
-}
-
-
-.happy-leaf.right {
-  right: -48px;
-  top: 44%;
+.leaf-left {
+  left: -47px;
+  top: 59%;
 
   transform:
-    rotate(12deg);
-}
-
-
-/* ==========================================
-   TIRED
-   Short / bent / drooping
-========================================== */
-
-.tired-inner {
-  transform:
-    rotate(6deg);
-
-  animation:
-    tiredSway
-    var(--sway-speed)
-    ease-in-out
-    infinite;
-}
-
-
-.tired-stem {
-  width: 8px;
-
-  height:
-    calc(
-      118px +
-      var(--height-extra)
-    );
-
-  border-radius:
-    70% 40% 30% 60%;
-
-  transform:
-    translateX(-50%)
-    rotate(7deg);
-}
-
-
-.tired-flower {
-  width: 70px;
-  height: 65px;
-
-  top: -20px;
-  left: 59%;
-
-  transform:
-    translateX(-50%)
-    rotate(18deg)
-    scale(
-      calc(
-        var(--flower-extra)
-        * 0.9
-      )
+    rotate(
+      var(--leaf-angle)
     );
 }
 
-
-.tired-flower .petal {
-  width: 34px;
-  height: 38px;
-
-  border-radius:
-    58%
-    58%
-    55%
-    55%;
-}
-
-
-.tired-flower .p1 {
-  top: 1px;
-  left: 18px;
-}
-
-.tired-flower .p2 {
-  top: 16px;
-  right: 1px;
-
-  transform:
-    rotate(90deg);
-}
-
-.tired-flower .p3 {
-  bottom: 0;
-  left: 18px;
-
-  transform:
-    rotate(180deg);
-}
-
-.tired-flower .p4 {
-  top: 16px;
-  left: 1px;
-
-  transform:
-    rotate(-90deg);
-}
-
-
-.tired-flower .flower-center {
-  width: 25px;
-  height: 25px;
-
-  left: 22px;
-  top: 21px;
-}
-
-
-.tired-leaf {
-  width: 47px;
-  height: 25px;
-
-  border-radius:
-    70%
-    20%
-    70%
-    20%;
-}
-
-
-.tired-leaf.left {
-  left: -39px;
-  top: 49%;
-
-  transform:
-    rotate(-28deg);
-}
-
-
-.tired-leaf.right {
-  right: -39px;
-  top: 69%;
-
-  transform:
-    rotate(31deg);
-}
-
-
-/* ==========================================
-   ANXIOUS
-   Tall / narrow / many leaves / fast
-========================================== */
-
-.anxious-inner {
-  animation:
-    anxiousShake
-    var(--sway-speed)
-    ease-in-out
-    infinite;
-}
-
-
-.anxious-stem {
-  width: 5px;
-
-  height:
-    calc(
-      190px +
-      var(--height-extra)
-    );
-
-  border-radius: 999px;
-}
-
-
-.anxious-flower {
-  width: 55px;
-  height: 55px;
-
-  top: -26px;
-  left: 50%;
-
-  transform:
-    translateX(-50%)
-    scale(
-      calc(
-        var(--flower-extra)
-        * 0.8
-      )
-    );
-}
-
-
-.anxious-flower .petal {
-  width: 25px;
-  height: 34px;
-
-  border-radius:
-    55%
-    55%
-    40%
-    40%;
-}
-
-
-.anxious-flower .p1 {
-  top: 0;
-  left: 15px;
-}
-
-.anxious-flower .p2 {
-  right: 0;
-  top: 14px;
-
-  transform:
-    rotate(90deg);
-}
-
-.anxious-flower .p3 {
-  bottom: 0;
-  left: 15px;
-
-  transform:
-    rotate(180deg);
-}
-
-.anxious-flower .p4 {
-  left: 0;
-  top: 14px;
-
-  transform:
-    rotate(-90deg);
-}
-
-
-.anxious-flower .flower-center {
-  width: 18px;
-  height: 18px;
-
-  top: 18px;
-  left: 18px;
-}
-
-
-.anxious-leaf {
-  width: 44px;
-  height: 15px;
-
-  border-radius:
-    100%
-    15%
-    100%
-    15%;
-}
-
-
-.anxious-leaf.leaf-1 {
-  left: -40px;
-  top: 27%;
-
-  transform:
-    rotate(26deg);
-}
-
-
-.anxious-leaf.leaf-2 {
-  right: -40px;
+.leaf-right {
+  right: -47px;
   top: 43%;
 
   transform:
-    rotate(-25deg);
-}
-
-
-.anxious-leaf.leaf-3 {
-  left: -39px;
-  top: 61%;
-
-  transform:
-    rotate(15deg);
-}
-
-
-.anxious-leaf.leaf-4 {
-  right: -39px;
-  top: 75%;
-
-  transform:
-    rotate(-13deg);
-}
-
-
-/* ==========================================
-   EXCITED
-   Tall / large bloom / extra flowers
-========================================== */
-
-.excited-inner {
-  animation:
-    excitedSway
-    var(--sway-speed)
-    ease-in-out
-    infinite;
-}
-
-
-.excited-stem {
-  width: 8px;
-
-  height:
-    calc(
-      195px +
-      var(--height-extra)
-    );
-
-  border-radius: 999px;
-}
-
-
-.excited-flower {
-  width: 105px;
-  height: 105px;
-
-  top: -49px;
-  left: 50%;
-
-  transform:
-    translateX(-50%)
-    scale(
+    rotate(
       calc(
-        var(--flower-extra)
-        * 1.08
+        var(--leaf-angle)
+        *
+        -1
       )
     );
 }
 
 
-.excited-flower .petal {
-  width: 40px;
-  height: 50px;
+/* =========================
+   HIGH INTENSITY EXTRA LEAVES
+========================= */
 
-  border-radius:
-    70%
-    70%
-    40%
-    40%;
+.extra-left {
+  left: -42px;
+  top: 77%;
+
+  width: 45px;
+  height: 25px;
+
+  opacity: 0.88;
+
+  transform:
+    rotate(
+      calc(
+        var(--leaf-angle)
+        +
+        8deg
+      )
+    );
+}
+
+.extra-right {
+  right: -42px;
+  top: 69%;
+
+  width: 45px;
+  height: 25px;
+
+  opacity: 0.88;
+
+  transform:
+    rotate(
+      calc(
+        (
+          var(--leaf-angle)
+          +
+          8deg
+        )
+        *
+        -1
+      )
+    );
+}
+
+
+/* =========================
+   EXCITED SIDE FLOWER
+========================= */
+
+.side-flower {
+  position: absolute;
+
+  width: 43px;
+  height: 43px;
+
+  top: 28%;
+}
+
+.side-left {
+  left: -40px;
+}
+
+.side-flower::after {
+  content: "";
+
+  position: absolute;
+
+  width: 33px;
+  height: 5px;
+
+  right: -26px;
+  top: 22px;
+
+  transform:
+    rotate(24deg);
+
+  transform-origin:
+    right center;
 
   background:
-    var(--flower);
+    var(--stem);
+
+  z-index: -1;
 }
 
-
-.excited-flower .p1 {
-  left: 33px;
-  top: 0;
-}
-
-.excited-flower .p2 {
-  right: 8px;
-  top: 10px;
-
-  transform:
-    rotate(45deg);
-}
-
-.excited-flower .p3 {
-  right: 0;
-  top: 34px;
-
-  transform:
-    rotate(90deg);
-}
-
-.excited-flower .p4 {
-  right: 10px;
-  bottom: 5px;
-
-  transform:
-    rotate(135deg);
-}
-
-.excited-flower .p5 {
-  left: 33px;
-  bottom: 0;
-
-  transform:
-    rotate(180deg);
-}
-
-.excited-flower .p6 {
-  left: 8px;
-  bottom: 8px;
-
-  transform:
-    rotate(-135deg);
-}
-
-.excited-flower .p7 {
-  left: 0;
-  top: 34px;
-
-  transform:
-    rotate(-90deg);
-}
-
-.excited-flower .p8 {
-  left: 8px;
-  top: 10px;
-
-  transform:
-    rotate(-45deg);
-}
-
-
-.excited-flower .flower-center {
-  width: 34px;
-  height: 34px;
-
-  left: 35px;
-  top: 35px;
-}
-
-
-/* mini flowers */
-
-.mini-flower {
-  position: absolute;
-
-  width: 35px;
-  height: 35px;
-}
-
-
-.mini-left {
-  left: -35px;
-  top: 35%;
-}
-
-
-.mini-right {
-  right: -34px;
-  top: 50%;
-}
-
-
-.mini-flower span {
-  position: absolute;
-
+.side-flower .petal {
   width: 18px;
-  height: 21px;
-
-  border-radius: 60%;
-
-  background:
-    var(--flower-light);
+  height: 25px;
 }
 
-
-.mini-flower span:nth-child(1) {
-  left: 8px;
-  top: 0;
-}
-
-
-.mini-flower span:nth-child(2) {
-  right: 0;
-  top: 8px;
-
-  transform:
-    rotate(90deg);
-}
-
-
-.mini-flower span:nth-child(3) {
-  left: 8px;
-  bottom: 0;
-
-  transform:
-    rotate(180deg);
-}
-
-
-.mini-flower span:nth-child(4) {
-  left: 0;
-  top: 8px;
-
-  transform:
-    rotate(-90deg);
-}
-
-
-.mini-flower i {
+.side-flower i {
   position: absolute;
 
-  width: 13px;
-  height: 13px;
+  width: 16px;
+  height: 16px;
 
-  left: 11px;
-  top: 11px;
+  left: 50%;
+  top: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
 
   border-radius: 50%;
 
   background:
     var(--center);
+
+  z-index: 2;
 }
 
 
-.excited-leaf {
-  width: 60px;
-  height: 30px;
+/* =========================
+   SUBTLE MOOD DIFFERENCES
+========================= */
 
+.calm-plant .flower {
+  top: -57px;
+}
+
+.calm-plant .leaf {
   border-radius:
-    75%
-    15%
-    75%
-    15%;
+    65%
+    40%
+    65%
+    40%;
 }
 
 
-.excited-leaf.left {
-  left: -51px;
-  top: 66%;
+.happy-plant .flower {
+  top: -66px;
+}
 
-  transform:
-    rotate(10deg);
+.happy-plant .petal {
+  width: 34px;
+  height: 45px;
 }
 
 
-.excited-leaf.right {
-  right: -51px;
-  top: 42%;
+.tired-plant .plant-motion {
+  transform-origin:
+    center
+    bottom;
+}
+
+.tired-plant .flower {
+  top: -53px;
 
   transform:
-    rotate(-10deg);
+    translateX(-50%)
+    rotate(10deg)
+    scale(
+      var(--flower-scale)
+    );
+}
+
+.tired-plant .leaf-left {
+  transform:
+    rotate(31deg);
+}
+
+.tired-plant .leaf-right {
+  transform:
+    rotate(-31deg);
+}
+
+
+.anxious-plant .stem {
+  width: 6px;
+}
+
+.anxious-plant .leaf {
+  width: 47px;
+  height: 21px;
+}
+
+.anxious-plant .flower {
+  top: -57px;
+}
+
+.anxious-plant .petal {
+  width: 27px;
+  height: 37px;
+}
+
+
+.excited-plant .flower {
+  top: -68px;
+}
+
+.excited-plant .petal {
+  width: 34px;
+  height: 45px;
 }
 
 
@@ -1167,7 +677,6 @@ h1 {
     );
 }
 
-
 .control-label {
   margin:
     0
@@ -1175,10 +684,10 @@ h1 {
     12px;
 
   font-size: 13px;
+  font-weight: 500;
 
   color: #777d76;
 }
-
 
 .mood-buttons {
   display: flex;
@@ -1188,11 +697,10 @@ h1 {
   gap: 8px;
 }
 
-
 .mood-button {
   padding:
     10px
-    15px;
+    16px;
 
   border:
     1px solid
@@ -1204,29 +712,33 @@ h1 {
 
   color: #4d554d;
 
+  font-weight: 600;
+
   cursor: pointer;
 
   transition:
     0.2s ease;
 }
 
-
 .mood-button:hover {
-  background: #eef1e8;
+  background:
+    #eef1e8;
 }
 
-
 .mood-button.selected {
-  border-color: #bfd2bb;
+  border-color:
+    #bfd2bb;
 
-  background: #dce9d8;
+  background:
+    #dce9d8;
 
-  color: #304332;
+  color:
+    #304332;
 }
 
 
 /* =========================
-   SLIDER
+   INTENSITY
 ========================= */
 
 .intensity-header {
@@ -1235,63 +747,107 @@ h1 {
   justify-content:
     space-between;
 
-  margin-bottom: 12px;
+  align-items: center;
+
+  margin-bottom:
+    12px;
 
   font-size: 13px;
+  font-weight: 500;
 
   color: #777d76;
 }
 
+.intensity-value {
+  padding:
+    5px
+    10px;
+
+  border-radius: 999px;
+
+  background:
+    #edf2e9;
+
+  color:
+    #58705a;
+
+  font-weight: 600;
+}
 
 #intensity {
   width: 100%;
 
-  accent-color: #89aa87;
+  accent-color:
+    #89aa87;
 }
 
-
 .range-labels {
-  display: flex;
+  display: grid;
 
-  justify-content:
-    space-between;
+  grid-template-columns:
+    1fr
+    1fr
+    1fr;
 
-  margin-top: 6px;
+  margin-top:
+    7px;
 
   font-size: 10px;
 
-  color: #a0a39c;
+  color:
+    #a0a39c;
+}
+
+.range-labels span:nth-child(1) {
+  text-align: left;
+}
+
+.range-labels span:nth-child(2) {
+  text-align: center;
+}
+
+.range-labels span:nth-child(3) {
+  text-align: right;
 }
 
 
 /* =========================
-   BUTTON
+   GROW BUTTON
 ========================= */
 
 .grow-button {
-  min-width: 180px;
+  min-width:
+    180px;
 
   padding:
     15px
-    22px;
+    23px;
 
   border: none;
 
-  border-radius: 999px;
+  border-radius:
+    999px;
 
-  background: #293029;
+  background:
+    #293029;
 
-  color: #ffffff;
+  color:
+    white;
 
-  cursor: pointer;
+  font-weight:
+    600;
+
+  cursor:
+    pointer;
 
   transition:
     transform
-    0.2s ease,
+    0.2s
+    ease,
     opacity
-    0.2s ease;
+    0.2s
+    ease;
 }
-
 
 .grow-button:hover {
   transform:
@@ -1309,20 +865,26 @@ h1 {
   justify-content:
     space-between;
 
-  align-items: center;
+  align-items:
+    center;
 
   padding:
     15px
     36px
     20px;
 
-  background: #faf9f4;
+  background:
+    #faf9f4;
 
-  color: #81867e;
+  color:
+    #81867e;
 
-  font-size: 12px;
+  font-size:
+    12px;
+
+  font-weight:
+    500;
 }
-
 
 .message,
 .plant-count {
@@ -1331,7 +893,7 @@ h1 {
 
 
 /* =========================
-   ANIMATION
+   ANIMATIONS
 ========================= */
 
 @keyframes growIn {
@@ -1359,7 +921,7 @@ h1 {
 }
 
 
-@keyframes sway {
+@keyframes moodSway {
 
   0%,
   100% {
@@ -1375,23 +937,16 @@ h1 {
 }
 
 
-@keyframes tiredSway {
+/* anxious moves slightly faster/sharper */
 
-  0%,
-  100% {
-    transform:
-      rotate(4deg);
-  }
-
-  50% {
-    transform:
-      rotate(8deg);
-  }
-
+.anxious-plant
+.plant-motion {
+  animation-name:
+    anxiousSway;
 }
 
 
-@keyframes anxiousShake {
+@keyframes anxiousSway {
 
   0% {
     transform:
@@ -1407,8 +962,7 @@ h1 {
 
   50% {
     transform:
-      rotate(-1deg)
-      translateX(-1px);
+      rotate(-1deg);
   }
 
   75% {
@@ -1423,6 +977,40 @@ h1 {
       translateX(-1px);
   }
 
+}
+
+
+/* tired barely moves */
+
+.tired-plant
+.plant-motion {
+  animation-name:
+    tiredSway;
+}
+
+
+@keyframes tiredSway {
+
+  0%,
+  100% {
+    transform:
+      rotate(4deg);
+  }
+
+  50% {
+    transform:
+      rotate(7deg);
+  }
+
+}
+
+
+/* excited moves wider */
+
+.excited-plant
+.plant-motion {
+  animation-name:
+    excitedSway;
 }
 
 
@@ -1450,30 +1038,32 @@ h1 {
 
   .page {
     width:
-      min(
-        100% - 24px,
-        1320px
+      calc(
+        100%
+        -
+        24px
       );
 
-    padding-top: 32px;
+    padding-top:
+      32px;
   }
-
 
   .garden {
-    height: 480px;
+    height:
+      480px;
   }
-
 
   .control-panel {
     grid-template-columns:
       1fr;
 
-    gap: 25px;
+    gap:
+      25px;
   }
 
-
   .grow-button {
-    width: 100%;
+    width:
+      100%;
   }
 
 }

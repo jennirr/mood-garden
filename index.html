@@ -1,19 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
 
   <title>Mood Garden</title>
 
-  <link rel="stylesheet" href="style.css">
+  <link
+    rel="stylesheet"
+    href="style.css"
+  >
 </head>
+
 
 <body>
 
   <main class="page">
 
-    <!-- Header -->
+    <!-- =========================
+         HEADER
+    ========================== -->
+
     <header class="intro">
 
       <p class="eyebrow">
@@ -26,34 +38,66 @@
 
       <p class="description">
         Every feeling becomes a plant.
-        Keep growing to see your mood garden change over time.
+        Keep growing to see your mood garden
+        change over time.
       </p>
 
     </header>
 
 
-    <!-- Main Garden -->
+    <!-- =========================
+         GARDEN
+    ========================== -->
+
     <section class="garden-section">
 
-      <div id="garden" class="garden">
+      <div
+        id="garden"
+        class="garden"
+      >
 
         <div class="sun-glow"></div>
 
         <div class="hill hill-back"></div>
         <div class="hill hill-front"></div>
 
-        <div id="empty-message" class="empty-message">
-          <span>Your garden is waiting.</span>
-          <p>Choose a feeling and plant your first mood.</p>
+
+        <!-- Empty garden message -->
+
+        <div
+          id="empty-message"
+          class="empty-message"
+        >
+
+          <span>
+            Your garden is waiting.
+          </span>
+
+          <p>
+            Choose a feeling and plant your first mood.
+          </p>
+
         </div>
 
-        <div id="plants-layer" class="plants-layer"></div>
+
+        <!-- Plants appear here -->
+
+        <div
+          id="plants-layer"
+          class="plants-layer"
+        ></div>
 
       </div>
 
 
-      <!-- Bottom controls -->
+      <!-- =========================
+           CONTROLS
+      ========================== -->
+
       <div class="control-panel">
+
+
+        <!-- Mood -->
 
         <div class="control-left">
 
@@ -63,23 +107,38 @@
 
           <div class="mood-buttons">
 
-            <button class="mood-button" data-mood="calm">
+            <button
+              class="mood-button"
+              data-mood="calm"
+            >
               Calm
             </button>
 
-            <button class="mood-button" data-mood="happy">
+            <button
+              class="mood-button"
+              data-mood="happy"
+            >
               Happy
             </button>
 
-            <button class="mood-button" data-mood="tired">
+            <button
+              class="mood-button"
+              data-mood="tired"
+            >
               Tired
             </button>
 
-            <button class="mood-button" data-mood="anxious">
+            <button
+              class="mood-button"
+              data-mood="anxious"
+            >
               Anxious
             </button>
 
-            <button class="mood-button" data-mood="excited">
+            <button
+              class="mood-button"
+              data-mood="excited"
+            >
               Excited
             </button>
 
@@ -88,32 +147,63 @@
         </div>
 
 
+        <!-- Intensity -->
+
         <div class="control-middle">
 
           <div class="intensity-header">
-            <span>Mood intensity</span>
-            <span id="intensity-value">3 / 5</span>
+
+            <span>
+              Mood intensity
+            </span>
+
+            <span
+              id="intensity-value"
+              class="intensity-value"
+            >
+              Medium
+            </span>
+
           </div>
+
 
           <input
             type="range"
             id="intensity"
             min="1"
-            max="5"
-            value="3"
+            max="3"
+            step="1"
+            value="2"
           >
 
+
           <div class="range-labels">
-            <span>soft</span>
-            <span>strong</span>
+
+            <span>
+              Low
+            </span>
+
+            <span>
+              Medium
+            </span>
+
+            <span>
+              High
+            </span>
+
           </div>
 
         </div>
 
 
+        <!-- Grow -->
+
         <div class="control-right">
 
-          <button id="grow-button" class="grow-button">
+          <button
+            id="grow-button"
+            class="grow-button"
+          >
             Grow a feeling
           </button>
 
@@ -122,14 +212,23 @@
       </div>
 
 
-      <!-- Feedback -->
+      <!-- =========================
+           FEEDBACK
+      ========================== -->
+
       <div class="feedback-row">
 
-        <p id="message" class="message">
+        <p
+          id="message"
+          class="message"
+        >
           Choose a mood to begin.
         </p>
 
-        <p id="plant-count" class="plant-count">
+        <p
+          id="plant-count"
+          class="plant-count"
+        >
           0 plants growing
         </p>
 
@@ -143,4 +242,5 @@
   <script src="script.js"></script>
 
 </body>
+
 </html>

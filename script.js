@@ -13,66 +13,171 @@ let plantCount = 0;
 
 
 /* =========================
+   INTENSITY
+========================= */
+
+const intensityLabels = {
+  1: "Low",
+  2: "Medium",
+  3: "High"
+};
+
+const intensityScaleMap = {
+  1: 0.88,
+  2: 1.00,
+  3: 1.12
+};
+
+
+/* =========================
    MOOD SETTINGS
 ========================= */
 
 const moods = {
 
   calm: {
-    flower: "#AFCFD0",
-    flowerLight: "#DCE9E5",
-    leaf: "#8FAE98",
-    stem: "#789680",
-    center: "#DCC98D",
-    sway: "6s",
+    flower: "#A9D5D1",
+    flowerLight: "#D8ECE8",
+    leaf: "#91AD98",
+    stem: "#78937D",
+    center: "#E1C77F",
+    speed: {
+      1: "9s",
+      2: "7s",
+      3: "5.8s"
+    },
+    lean: 0,
+    leafAngle: 8,
+    flowerScale: 0.92,
     message: "A quiet feeling has taken root."
   },
 
   happy: {
-    flower: "#F2BFC8",
+    flower: "#F2C5CB",
     flowerLight: "#F8DDE1",
-    leaf: "#95B985",
-    stem: "#759B70",
-    center: "#E7C46D",
-    sway: "3.8s",
+    leaf: "#94B589",
+    stem: "#769970",
+    center: "#E6C06C",
+    speed: {
+      1: "6s",
+      2: "4.5s",
+      3: "3.5s"
+    },
+    lean: 0,
+    leafAngle: -5,
+    flowerScale: 1.08,
     message: "A little happiness is blooming."
   },
 
   tired: {
-    flower: "#BEB4C6",
-    flowerLight: "#DED7E1",
+    flower: "#BEB3C8",
+    flowerLight: "#DDD5E2",
     leaf: "#89968A",
-    stem: "#778278",
-    center: "#C5AE84",
-    sway: "8s",
-    message: "This plant is taking things slowly."
+    stem: "#788278",
+    center: "#C7AE84",
+    speed: {
+      1: "11s",
+      2: "9s",
+      3: "7.5s"
+    },
+    lean: 7,
+    leafAngle: 28,
+    flowerScale: 0.90,
+    message: "This feeling is resting for a while."
   },
 
   anxious: {
-    flower: "#D8AABC",
-    flowerLight: "#E8C8D3",
-    leaf: "#78A08D",
-    stem: "#638675",
-    center: "#D7BB7F",
-    sway: "1.25s",
-    message: "A restless feeling found a place to grow."
+    flower: "#D9AFC0",
+    flowerLight: "#E9CED8",
+    leaf: "#7FA291",
+    stem: "#688A77",
+    center: "#D3B47D",
+    speed: {
+      1: "3s",
+      2: "2s",
+      3: "1.25s"
+    },
+    lean: -3,
+    leafAngle: 18,
+    flowerScale: 0.88,
+    message: "A restless feeling found room to grow."
   },
 
   excited: {
-    flower: "#F4A9B5",
+    flower: "#F2AEB8",
     flowerLight: "#FFD2D8",
-    leaf: "#79AD73",
-    stem: "#659162",
-    center: "#E9BD58",
-    sway: "1.8s",
-    message: "Energy is growing in your garden."
+    leaf: "#7EAE78",
+    stem: "#6B9568",
+    center: "#EABD59",
+    speed: {
+      1: "3.5s",
+      2: "2.5s",
+      3: "1.7s"
+    },
+    lean: 0,
+    leafAngle: -10,
+    flowerScale: 1.15,
+    message: "Energy is spreading through your garden."
   }
 
 };
 
 
 /* =========================
-   MOOD SELECTION
+   GARDEN SLOTS
+========================= */
+
+function createGardenSlots() {
+
+  const slots = [];
+
+  const rows = [
+    {
+      bottom: 92,
+      scale: 0.74,
+      z: 2,
+      xValues: [8, 18, 28, 38, 48, 58, 68, 78, 88]
+    },
+
+    {
+      bottom: 56,
+      scale: 0.88,
+      z: 4,
+      xValues: [4, 14, 24, 34, 44, 54, 64, 74, 84, 94]
+    },
+
+    {
+      bottom: 20,
+      scale: 1.02,
+      z: 6,
+      xValues: [8, 18, 28, 38, 48, 58, 68, 78, 88]
+    }
+  ];
+
+  rows.forEach((row) => {
+
+    row.xValues.forEach((x) => {
+
+      slots.push({
+        x,
+        bottom: row.bottom,
+        depthScale: row.scale,
+        z: row.z
+      });
+
+    });
+
+  });
+
+  return shuffle(slots);
+}
+
+
+let availableSlots = createGardenSlots();
+
+
+/* =========================
+   MOOD SELECT
 ========================= */
 
 moodButtons.forEach((button) => {
@@ -101,8 +206,10 @@ moodButtons.forEach((button) => {
 
 intensitySlider.addEventListener("input", () => {
 
+  const intensity = Number(intensitySlider.value);
+
   intensityValue.textContent =
-    `${intensitySlider.value} / 5`;
+    intensityLabels[intensity];
 
 });
 
@@ -119,6 +226,7 @@ growButton.addEventListener("click", () => {
       "Choose a mood before planting it.";
 
     return;
+
   }
 
   const intensity =
@@ -133,177 +241,18 @@ growButton.addEventListener("click", () => {
 
 
 /* =========================
-   PLANT TEMPLATE
-========================= */
-
-function getPlantTemplate(mood) {
-
-  /*
-    Each mood uses a different structure,
-    so the plant can be recognised
-    by shape as well as colour.
-  */
-
-  if (mood === "calm") {
-
-    return `
-      <div class="plant-inner calm-inner">
-
-        <div class="stem calm-stem">
-
-          <div class="flower calm-flower">
-            <span class="petal p1"></span>
-            <span class="petal p2"></span>
-            <span class="petal p3"></span>
-            <span class="petal p4"></span>
-            <span class="petal p5"></span>
-            <span class="flower-center"></span>
-          </div>
-
-          <span class="leaf calm-leaf left"></span>
-          <span class="leaf calm-leaf right"></span>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if (mood === "happy") {
-
-    return `
-      <div class="plant-inner happy-inner">
-
-        <div class="stem happy-stem">
-
-          <div class="flower happy-flower">
-            <span class="petal p1"></span>
-            <span class="petal p2"></span>
-            <span class="petal p3"></span>
-            <span class="petal p4"></span>
-            <span class="petal p5"></span>
-            <span class="petal p6"></span>
-            <span class="flower-center"></span>
-          </div>
-
-          <span class="leaf happy-leaf left"></span>
-          <span class="leaf happy-leaf right"></span>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if (mood === "tired") {
-
-    return `
-      <div class="plant-inner tired-inner">
-
-        <div class="stem tired-stem">
-
-          <div class="flower tired-flower">
-            <span class="petal p1"></span>
-            <span class="petal p2"></span>
-            <span class="petal p3"></span>
-            <span class="petal p4"></span>
-            <span class="flower-center"></span>
-          </div>
-
-          <span class="leaf tired-leaf left"></span>
-          <span class="leaf tired-leaf right"></span>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if (mood === "anxious") {
-
-    return `
-      <div class="plant-inner anxious-inner">
-
-        <div class="stem anxious-stem">
-
-          <div class="flower anxious-flower">
-            <span class="petal p1"></span>
-            <span class="petal p2"></span>
-            <span class="petal p3"></span>
-            <span class="petal p4"></span>
-            <span class="flower-center"></span>
-          </div>
-
-          <span class="leaf anxious-leaf left leaf-1"></span>
-          <span class="leaf anxious-leaf right leaf-2"></span>
-
-          <span class="leaf anxious-leaf left leaf-3"></span>
-          <span class="leaf anxious-leaf right leaf-4"></span>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  if (mood === "excited") {
-
-    return `
-      <div class="plant-inner excited-inner">
-
-        <div class="stem excited-stem">
-
-          <div class="flower excited-flower main-flower">
-            <span class="petal p1"></span>
-            <span class="petal p2"></span>
-            <span class="petal p3"></span>
-            <span class="petal p4"></span>
-            <span class="petal p5"></span>
-            <span class="petal p6"></span>
-            <span class="petal p7"></span>
-            <span class="petal p8"></span>
-            <span class="flower-center"></span>
-          </div>
-
-          <div class="mini-flower mini-left">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <i></i>
-          </div>
-
-          <div class="mini-flower mini-right">
-            <span></span>
-            <span></span>
-            <span></span>
-            <span></span>
-            <i></i>
-          </div>
-
-          <span class="leaf excited-leaf left"></span>
-          <span class="leaf excited-leaf right"></span>
-
-        </div>
-
-      </div>
-    `;
-  }
-
-}
-
-
-/* =========================
-   GROW PLANT
+   CREATE PLANT
 ========================= */
 
 function growPlant(mood, intensity) {
 
   const settings = moods[mood];
+
+  if (availableSlots.length === 0) {
+    availableSlots = createGardenSlots();
+  }
+
+  const slot = availableSlots.pop();
 
   const plant =
     document.createElement("div");
@@ -312,47 +261,36 @@ function growPlant(mood, intensity) {
     `garden-plant ${mood}-plant`;
 
 
-  /* -------------------------
-     POSITION
-  ------------------------- */
+  const xJitter =
+    randomBetween(-1.3, 1.3);
 
-  const x =
-    7 + Math.random() * 86;
-
-  const bottom =
-    35 + Math.random() * 50;
-
-
-  /* -------------------------
-     SCALE
-  ------------------------- */
-
-  const intensityScale =
-    0.72 + intensity * 0.08;
+  const bottomJitter =
+    randomBetween(-4, 4);
 
   const naturalVariation =
-    0.90 + Math.random() * 0.18;
+    randomBetween(0.96, 1.04);
 
   const finalScale =
-    intensityScale *
+    slot.depthScale
+    *
+    intensityScaleMap[intensity]
+    *
     naturalVariation;
 
 
   plant.style.left =
-    `${x}%`;
+    `${slot.x + xJitter}%`;
 
   plant.style.bottom =
-    `${bottom}px`;
+    `${slot.bottom + bottomJitter}px`;
+
+  plant.style.zIndex =
+    slot.z;
 
   plant.style.setProperty(
     "--plant-scale",
     finalScale
   );
-
-
-  /* -------------------------
-     COLOURS
-  ------------------------- */
 
   plant.style.setProperty(
     "--flower",
@@ -381,46 +319,53 @@ function growPlant(mood, intensity) {
 
   plant.style.setProperty(
     "--sway-speed",
-    settings.sway
+    settings.speed[intensity]
   );
 
-
-  /* -------------------------
-     INTENSITY VARIABLES
-  ------------------------- */
+  plant.style.setProperty(
+    "--lean",
+    `${settings.lean}deg`
+  );
 
   plant.style.setProperty(
-    "--intensity",
+    "--leaf-angle",
+    `${settings.leafAngle}deg`
+  );
+
+  plant.style.setProperty(
+    "--flower-scale",
+    settings.flowerScale
+    *
+    intensityScaleMap[intensity]
+  );
+
+  plant.style.setProperty(
+    "--growth-level",
     intensity
   );
 
-  plant.style.setProperty(
-    "--height-extra",
-    `${intensity * 5}px`
-  );
 
-  plant.style.setProperty(
-    "--flower-extra",
-    1 + intensity * 0.035
-  );
+  const saturationMap = {
+    1: 0.88,
+    2: 1.0,
+    3: 1.1
+  };
 
+  plant.style.filter =
+    `saturate(${saturationMap[intensity]})`;
 
-  /* -------------------------
-     TEMPLATE
-  ------------------------- */
 
   plant.innerHTML =
-    getPlantTemplate(mood);
+    getPlantTemplate(
+      mood,
+      intensity
+    );
 
 
   plantsLayer.appendChild(
     plant
   );
 
-
-  /* -------------------------
-     FEEDBACK
-  ------------------------- */
 
   emptyMessage.style.opacity =
     "0";
@@ -435,8 +380,105 @@ function growPlant(mood, intensity) {
     } growing`;
 
   message.textContent =
-    settings.message;
+    `${settings.message} Intensity: ${intensityLabels[intensity]}.`;
 
+}
+
+
+/* =========================
+   UNIFIED PLANT TEMPLATE
+========================= */
+
+function getPlantTemplate(mood, intensity) {
+
+  const extraLeaf =
+    intensity === 3
+      ? `
+        <span class="leaf extra-left"></span>
+        <span class="leaf extra-right"></span>
+      `
+      : "";
+
+
+  const sideFlower =
+    mood === "excited" && intensity === 3
+      ? `
+        <div class="side-flower side-left">
+          ${makePetals(5)}
+          <i></i>
+        </div>
+      `
+      : "";
+
+
+  return `
+    <div class="plant-motion">
+
+      <div class="stem">
+
+        <div class="flower">
+
+          ${makePetals(
+            mood === "happy"
+              ? 6
+              : mood === "excited"
+                ? 7
+                : 5
+          )}
+
+          <i></i>
+
+        </div>
+
+        ${sideFlower}
+
+        <span class="leaf leaf-left"></span>
+        <span class="leaf leaf-right"></span>
+
+        ${extraLeaf}
+
+      </div>
+
+    </div>
+  `;
+}
+
+
+/* =========================
+   PETALS
+========================= */
+
+function makePetals(count) {
+
+  let petals = "";
+
+  for (
+    let i = 0;
+    i < count;
+    i++
+  ) {
+
+    const angle =
+      360
+      /
+      count
+      *
+      i;
+
+    petals += `
+      <span
+        class="petal"
+        style="
+          transform:
+            translate(-50%, -100%)
+            rotate(${angle}deg);
+        "
+      ></span>
+    `;
+
+  }
+
+  return petals;
 }
 
 
@@ -452,4 +494,49 @@ function capitalize(text) {
     text.slice(1)
   );
 
+}
+
+
+function randomBetween(min, max) {
+
+  return (
+    min
+    +
+    Math.random()
+    *
+    (max - min)
+  );
+
+}
+
+
+function shuffle(array) {
+
+  const copy = [...array];
+
+  for (
+    let i = copy.length - 1;
+    i > 0;
+    i--
+  ) {
+
+    const j =
+      Math.floor(
+        Math.random()
+        *
+        (i + 1)
+      );
+
+    [
+      copy[i],
+      copy[j]
+    ]
+    =
+    [
+      copy[j],
+      copy[i]
+    ];
+  }
+
+  return copy;
 }
