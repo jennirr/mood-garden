@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Mood Garden</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <main class="page">
+
+    <section class="intro">
+      <p class="eyebrow">MOOD GARDEN</p>
+
+      <h1>How are you feeling today?</h1>
+
+      <p class="description">
+        Choose a mood and grow a plant that reflects how you feel.
+      </p>
+    </section>
+
+
+    <section class="garden-card">
+
+      <!-- Mood selection -->
+      <div class="controls">
+
+        <p class="label">Choose your mood</p>
+
+        <div class="mood-buttons">
+
+          <button class="mood-button" data-mood="calm">
+            Calm
+          </button>
+
+          <button class="mood-button" data-mood="happy">
+            Happy
+          </button>
+
+          <button class="mood-button" data-mood="tired">
+            Tired
+          </button>
+
+          <button class="mood-button" data-mood="anxious">
+            Anxious
+          </button>
+
+          <button class="mood-button" data-mood="excited">
+            Excited
+          </button>
+
+        </div>
+
+
+        <!-- Intensity -->
+        <div class="intensity-control">
+
+          <label for="intensity">
+            Mood intensity
+          </label>
+
+          <input
+            type="range"
+            id="intensity"
+            min="1"
+            max="5"
+            value="3"
+          >
+
+          <div class="range-labels">
+            <span>Low</span>
+            <span>High</span>
+          </div>
+
+        </div>
+
+
+        <button id="grow-button" class="grow-button">
+          Grow my plant
+        </button>
+
+        <p id="message" class="message">
+          Choose a mood to begin.
+        </p>
+
+      </div>
+
+
+      <!-- Plant -->
+      <div class="garden">
+
+        <div id="plant" class="plant">
+
+          <div class="flower">
+            <div class="petal petal-1"></div>
+            <div class="petal petal-2"></div>
+            <div class="petal petal-3"></div>
+            <div class="petal petal-4"></div>
+            <div class="flower-center"></div>
+          </div>
+
+          <div class="stem">
+
+            <div class="leaf leaf-left"></div>
+            <div class="leaf leaf-right"></div>
+
+          </div>
+
+        </div>
+
+        <div class="soil"></div>
+
+      </div>
+
+    </section>
+
+  </main>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>
