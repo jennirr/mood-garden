@@ -1,178 +1,427 @@
-const moodButtons = document.querySelectorAll(".mood-button");
-const growButton = document.querySelector("#grow-button");
-const intensitySlider = document.querySelector("#intensity");
+const moodButtons =
+  document.querySelectorAll(
+    ".mood-button"
+  );
 
-const message = document.querySelector("#message");
+const growButton =
+  document.querySelector(
+    "#grow-button"
+  );
 
-const plant = document.querySelector("#plant");
-const stem = document.querySelector(".stem");
-const flower = document.querySelector(".flower");
+const intensitySlider =
+  document.querySelector(
+    "#intensity"
+  );
 
-const petals = document.querySelectorAll(".petal");
-const leaves = document.querySelectorAll(".leaf");
+const intensityValue =
+  document.querySelector(
+    "#intensity-value"
+  );
+
+const message =
+  document.querySelector(
+    "#message"
+  );
+
+const plantCountText =
+  document.querySelector(
+    "#plant-count"
+  );
+
+const plantsLayer =
+  document.querySelector(
+    "#plants-layer"
+  );
+
+const emptyMessage =
+  document.querySelector(
+    "#empty-message"
+  );
 
 
 let selectedMood = null;
 
+let plantCount = 0;
 
-/* -------------------------
-   Mood settings
-------------------------- */
 
-const moodSettings = {
+/* =========================
+   MOOD SETTINGS
+========================= */
+
+const moods = {
 
   calm: {
-    flower: "#b7d9d0",
-    leaf: "#91ad98",
-    stem: "#78967d",
-    height: 220,
-    flowerScale: 0.95,
-    animationSpeed: 6,
-    message: "Your garden is growing quietly today."
+
+    flower: "#B9D8D0",
+
+    leaf: "#94AD98",
+
+    stem: "#78947D",
+
+    sway: "6s",
+
+    message:
+      "A quiet feeling has taken root."
+
   },
+
 
   happy: {
-    flower: "#f0c5cb",
-    leaf: "#94b58a",
-    stem: "#78996f",
-    height: 240,
-    flowerScale: 1.15,
-    animationSpeed: 3.5,
-    message: "Your garden feels warm and open today."
+
+    flower: "#F0BCC5",
+
+    leaf: "#91B587",
+
+    stem: "#73966E",
+
+    sway: "3.8s",
+
+    message:
+      "A little happiness is blooming."
+
   },
+
 
   tired: {
-    flower: "#c7b9c5",
-    leaf: "#89988a",
-    stem: "#788478",
-    height: 180,
-    flowerScale: 0.8,
-    animationSpeed: 8,
-    message: "Your garden is taking things slowly today."
+
+    flower: "#C6B9C5",
+
+    leaf: "#909A8D",
+
+    stem: "#7C887A",
+
+    sway: "8s",
+
+    message:
+      "This plant is taking its time."
+
   },
+
 
   anxious: {
-    flower: "#d8b5c4",
-    leaf: "#7fa38f",
-    stem: "#688a74",
-    height: 245,
-    flowerScale: 0.85,
-    animationSpeed: 1.5,
-    message: "Your garden feels a little restless today."
+
+    flower: "#DBB2C2",
+
+    leaf: "#82A493",
+
+    stem: "#688A75",
+
+    sway: "1.8s",
+
+    message:
+      "A restless feeling found a place to grow."
+
   },
 
+
   excited: {
-    flower: "#f2b0b9",
-    leaf: "#7eaf79",
-    stem: "#6d976a",
-    height: 260,
-    flowerScale: 1.3,
-    animationSpeed: 1.8,
-    message: "Your garden is full of energy today."
+
+    flower: "#F3AEB8",
+
+    leaf: "#7FAE78",
+
+    stem: "#6D9668",
+
+    sway: "2.2s",
+
+    message:
+      "Energy is growing in your garden."
+
   }
 
 };
 
 
-/* -------------------------
-   Select mood
-------------------------- */
+/* =========================
+   SELECT MOOD
+========================= */
 
-moodButtons.forEach((button) => {
+moodButtons.forEach(
+  (button) => {
 
-  button.addEventListener("click", () => {
+    button.addEventListener(
+      "click",
+      () => {
 
-    moodButtons.forEach((item) => {
-      item.classList.remove("selected");
-    });
+        moodButtons.forEach(
+          (item) => {
+            item.classList.remove(
+              "selected"
+            );
+          }
+        );
 
-    button.classList.add("selected");
+        button.classList.add(
+          "selected"
+        );
 
-    selectedMood = button.dataset.mood;
+        selectedMood =
+          button.dataset.mood;
 
-    message.textContent =
-      `You selected ${selectedMood}. Adjust the intensity, then grow your plant.`;
-  });
+        message.textContent =
+          `${capitalize(selectedMood)} is ready to grow.`;
 
-});
+      }
+    );
 
-
-/* -------------------------
-   Grow plant
-------------------------- */
-
-growButton.addEventListener("click", () => {
-
-  /*
-    Error handling:
-    user presses Grow before selecting a mood.
-  */
-
-  if (!selectedMood) {
-
-    message.textContent =
-      "Choose a mood first, then grow your plant.";
-
-    return;
   }
+);
 
 
-  const settings = moodSettings[selectedMood];
+/* =========================
+   INTENSITY
+========================= */
 
-  const intensity = Number(intensitySlider.value);
+intensitySlider.addEventListener(
+  "input",
+  () => {
+
+    intensityValue.textContent =
+      `${intensitySlider.value} / 5`;
+
+  }
+);
+
+
+/* =========================
+   GROW
+========================= */
+
+growButton.addEventListener(
+  "click",
+  () => {
+
+    if (!selectedMood) {
+
+      message.textContent =
+        "Choose a mood before planting it.";
+
+      return;
+
+    }
+
+
+    const intensity =
+      Number(
+        intensitySlider.value
+      );
+
+
+    growPlant(
+      selectedMood,
+      intensity
+    );
+
+  }
+);
+
+
+/* =========================
+   CREATE PLANT
+========================= */
+
+function growPlant(
+  mood,
+  intensity
+) {
+
+  const settings =
+    moods[mood];
+
+
+  const plant =
+    document.createElement(
+      "div"
+    );
+
+
+  plant.className =
+    "garden-plant";
 
 
   /*
-    Intensity changes how strongly
-    the selected mood affects the plant.
+    Random position.
+
+    Leave some space around
+    the edges of the garden.
   */
 
-  const intensityFactor =
-    0.85 + intensity * 0.05;
+  const x =
+    8
+    +
+    Math.random()
+    * 84;
 
 
-  /* Stem */
+  /*
+    Different plants sit
+    at slightly different
+    depths in the garden.
+  */
 
-  stem.style.height =
-    `${settings.height * intensityFactor}px`;
-
-  stem.style.background =
-    settings.stem;
-
-
-  /* Leaves */
-
-  leaves.forEach((leaf) => {
-
-    leaf.style.background =
-      settings.leaf;
-
-  });
+  const bottom =
+    38
+    +
+    Math.random()
+    * 55;
 
 
-  /* Flower */
+  /*
+    Intensity influences size.
+  */
 
-  petals.forEach((petal) => {
-
-    petal.style.background =
-      settings.flower;
-
-  });
-
-
-  flower.style.transform =
-    `translateX(-50%) scale(${settings.flowerScale * intensityFactor})`;
+  const intensityScale =
+    0.72
+    +
+    intensity
+    * 0.09;
 
 
-  /* Movement */
+  /*
+    Add some natural variation.
+  */
 
-  plant.style.animation =
-    `sway ${settings.animationSpeed}s ease-in-out infinite`;
+  const randomScale =
+    0.88
+    +
+    Math.random()
+    * 0.22;
 
 
-  /* Feedback */
+  const finalScale =
+    intensityScale
+    *
+    randomScale;
+
+
+  const stemHeight =
+    120
+    +
+    intensity
+    * 16
+    +
+    Math.random()
+    * 30;
+
+
+  plant.style.left =
+    `${x}%`;
+
+  plant.style.bottom =
+    `${bottom}px`;
+
+  plant.style.transform =
+    `translateX(-50%) scale(${finalScale})`;
+
+
+  plant.style.setProperty(
+    "--flower",
+    settings.flower
+  );
+
+  plant.style.setProperty(
+    "--leaf",
+    settings.leaf
+  );
+
+  plant.style.setProperty(
+    "--stem",
+    settings.stem
+  );
+
+  plant.style.setProperty(
+    "--sway-speed",
+    settings.sway
+  );
+
+  plant.style.setProperty(
+    "--stem-height",
+    `${stemHeight}px`
+  );
+
+
+  plant.style.setProperty(
+    "--flower-scale",
+    0.8
+    +
+    intensity
+    * 0.07
+  );
+
+
+  plant.innerHTML = `
+
+    <div class="plant-inner">
+
+      <div class="plant-stem">
+
+        <div class="plant-flower">
+
+          <div class="plant-petal p1"></div>
+
+          <div class="plant-petal p2"></div>
+
+          <div class="plant-petal p3"></div>
+
+          <div class="plant-petal p4"></div>
+
+          <div class="plant-center"></div>
+
+        </div>
+
+
+        <div class="plant-leaf left"></div>
+
+        <div class="plant-leaf right"></div>
+
+      </div>
+
+    </div>
+
+  `;
+
+
+  plantsLayer.appendChild(
+    plant
+  );
+
+
+  /*
+    Hide empty-state message
+    after the first plant.
+  */
+
+  emptyMessage.style.opacity =
+    "0";
+
+
+  plantCount += 1;
+
+
+  plantCountText.textContent =
+    `${plantCount} ${
+      plantCount === 1
+        ? "plant"
+        : "plants"
+    } growing`;
+
 
   message.textContent =
-    `${settings.message} Mood intensity: ${intensity}/5.`;
+    settings.message;
 
-});
+}
+
+
+/* =========================
+   HELPER
+========================= */
+
+function capitalize(text) {
+
+  return (
+    text.charAt(0).toUpperCase()
+    +
+    text.slice(1)
+  );
+
+}

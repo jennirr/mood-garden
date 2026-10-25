@@ -4,9 +4,14 @@
 
 body {
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  background: #f5f3ec;
-  color: #2d332d;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  background: #f4f2ea;
+  color: #293029;
 }
 
 button,
@@ -14,415 +19,687 @@ input {
   font: inherit;
 }
 
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 .page {
-  width: min(1100px, calc(100% - 40px));
+  width: min(1320px, calc(100% - 48px));
+
   margin: 0 auto;
-  padding: 70px 0;
+
+  padding:
+    48px
+    0
+    60px;
 }
 
 
-/* ----------------
-   Intro
----------------- */
+/* =========================
+   INTRO
+========================= */
 
 .intro {
-  margin-bottom: 40px;
+  margin-bottom: 34px;
 }
 
 .eyebrow {
   margin: 0 0 14px;
-  font-size: 13px;
-  letter-spacing: 0.18em;
-  color: #76917b;
+
+  font-size: 12px;
+
+  letter-spacing: 0.22em;
+
+  color: #7d9880;
 }
 
 h1 {
   margin: 0;
-  font-size: clamp(40px, 6vw, 72px);
+
+  font-size:
+    clamp(
+      48px,
+      6vw,
+      82px
+    );
+
   font-weight: 500;
-  letter-spacing: -0.04em;
+
+  letter-spacing: -0.05em;
 }
 
 .description {
-  max-width: 500px;
-  margin-top: 18px;
-  font-size: 17px;
+  max-width: 560px;
+
+  margin:
+    18px
+    0
+    0;
+
+  font-size: 16px;
+
   line-height: 1.6;
-  color: #767b74;
+
+  color: #777c75;
 }
 
 
-/* ----------------
-   Main card
----------------- */
+/* =========================
+   GARDEN SECTION
+========================= */
 
-.garden-card {
-  display: grid;
-  grid-template-columns: 0.8fr 1.2fr;
-  min-height: 520px;
-
-  background: #fbfaf6;
-
-  border: 1px solid #deddd5;
-  border-radius: 28px;
-
+.garden-section {
   overflow: hidden;
+
+  background: #faf9f4;
+
+  border:
+    1px
+    solid
+    #deddd4;
+
+  border-radius: 30px;
 }
 
 
-/* ----------------
-   Controls
----------------- */
-
-.controls {
-  padding: 45px;
-  border-right: 1px solid #deddd5;
-}
-
-.label {
-  margin-top: 0;
-  margin-bottom: 15px;
-
-  font-size: 14px;
-  color: #767b74;
-}
-
-.mood-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-.mood-button {
-  padding: 11px 17px;
-
-  border: 1px solid #cbcfc7;
-  border-radius: 999px;
-
-  background: transparent;
-
-  color: #4d544d;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.mood-button:hover {
-  background: #edf0e8;
-}
-
-.mood-button.selected {
-  background: #cadbc6;
-  border-color: #cadbc6;
-
-  color: #263427;
-}
-
-
-/* ----------------
-   Slider
----------------- */
-
-.intensity-control {
-  margin-top: 42px;
-}
-
-.intensity-control label {
-  display: block;
-
-  margin-bottom: 14px;
-
-  font-size: 14px;
-  color: #767b74;
-}
-
-#intensity {
-  width: 100%;
-}
-
-.range-labels {
-  display: flex;
-  justify-content: space-between;
-
-  margin-top: 6px;
-
-  font-size: 11px;
-  color: #9a9d97;
-}
-
-
-/* ----------------
-   Grow button
----------------- */
-
-.grow-button {
-  width: 100%;
-
-  margin-top: 40px;
-  padding: 14px 20px;
-
-  border: none;
-  border-radius: 999px;
-
-  background: #292f2b;
-  color: white;
-
-  cursor: pointer;
-
-  transition: 0.2s ease;
-}
-
-.grow-button:hover {
-  transform: translateY(-1px);
-  opacity: 0.9;
-}
-
-.message {
-  min-height: 45px;
-
-  margin-top: 20px;
-
-  font-size: 14px;
-  line-height: 1.5;
-
-  color: #767b74;
-}
-
-
-/* ----------------
-   Garden
----------------- */
+/* =========================
+   GARDEN
+========================= */
 
 .garden {
   position: relative;
 
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  height: 560px;
 
-  min-height: 520px;
+  overflow: hidden;
 
   background:
-    radial-gradient(
-      circle at 50% 30%,
-      #ffffff 0%,
-      #f4f0ea 70%
+    linear-gradient(
+      to bottom,
+      #f8f5f1 0%,
+      #f6f2eb 58%,
+      #e8ecdf 100%
     );
 }
 
 
-/* ----------------
-   Plant
----------------- */
+/* soft sunlight */
 
-.plant {
-  position: relative;
+.sun-glow {
+  position: absolute;
 
-  width: 180px;
-  height: 330px;
+  width: 500px;
+  height: 500px;
 
-  transform-origin: bottom center;
+  top: -270px;
+  left: 50%;
 
-  transition:
-    transform 0.8s ease,
-    filter 0.8s ease;
+  transform: translateX(-50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 244, 208, 0.75),
+      rgba(255, 244, 208, 0)
+    );
 }
 
 
-/* ----------------
-   Stem
----------------- */
+/* hills */
 
-.stem {
+.hill {
   position: absolute;
 
-  width: 10px;
-  height: 220px;
+  border-radius: 50% 50% 0 0;
+}
+
+.hill-back {
+  width: 130%;
+  height: 170px;
+
+  left: -15%;
+  bottom: -75px;
+
+  background: #dfe7d4;
+}
+
+.hill-front {
+  width: 120%;
+  height: 135px;
+
+  left: -10%;
+  bottom: -70px;
+
+  background: #cad8bf;
+}
+
+
+/* =========================
+   EMPTY MESSAGE
+========================= */
+
+.empty-message {
+  position: absolute;
+
+  top: 43%;
+  left: 50%;
+
+  transform:
+    translate(
+      -50%,
+      -50%
+    );
+
+  text-align: center;
+
+  color: #999c94;
+
+  transition:
+    opacity
+    0.4s ease;
+}
+
+.empty-message span {
+  display: block;
+
+  margin-bottom: 8px;
+
+  font-size: 20px;
+
+  color: #7b8178;
+}
+
+.empty-message p {
+  margin: 0;
+
+  font-size: 13px;
+}
+
+
+/* =========================
+   PLANT LAYER
+========================= */
+
+.plants-layer {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 5;
+}
+
+
+/* =========================
+   INDIVIDUAL PLANT
+========================= */
+
+.garden-plant {
+  position: absolute;
+
+  width: 110px;
+  height: 230px;
+
+  transform-origin:
+    center
+    bottom;
+
+  animation:
+    growIn
+    0.8s
+    cubic-bezier(
+      0.34,
+      1.56,
+      0.64,
+      1
+    );
+}
+
+
+/* =========================
+   STEM
+========================= */
+
+.plant-stem {
+  position: absolute;
+
+  width: 7px;
 
   left: 50%;
-  bottom: 20px;
+  bottom: 0;
 
-  transform: translateX(-50%);
+  transform:
+    translateX(-50%);
 
   border-radius: 999px;
 
-  background: #789875;
+  background:
+    var(--stem);
 
-  transition:
-    height 0.8s ease,
-    background 0.8s ease;
+  height:
+    var(--stem-height);
 }
 
 
-/* ----------------
-   Leaves
----------------- */
+/* =========================
+   LEAVES
+========================= */
 
-.leaf {
+.plant-leaf {
   position: absolute;
 
-  width: 75px;
-  height: 42px;
+  width: 49px;
+  height: 27px;
 
-  background: #94ad8e;
-
-  transition:
-    transform 0.8s ease,
-    background 0.8s ease,
-    width 0.8s ease;
+  background:
+    var(--leaf);
 }
 
-.leaf-left {
-  left: -63px;
-  top: 85px;
+.plant-leaf.left {
+  left: -43px;
+  top: 47%;
 
-  border-radius: 75% 10% 75% 10%;
+  border-radius:
+    80%
+    12%
+    80%
+    12%;
 
-  transform: rotate(22deg);
+  transform:
+    rotate(22deg);
 }
 
-.leaf-right {
-  right: -63px;
-  top: 130px;
+.plant-leaf.right {
+  right: -43px;
+  top: 66%;
 
-  border-radius: 10% 75% 10% 75%;
+  border-radius:
+    12%
+    80%
+    12%
+    80%;
 
-  transform: rotate(-22deg);
+  transform:
+    rotate(-22deg);
 }
 
 
-/* ----------------
-   Flower
----------------- */
+/* =========================
+   FLOWER
+========================= */
 
-.flower {
+.plant-flower {
   position: absolute;
 
-  width: 100px;
-  height: 100px;
+  width: 72px;
+  height: 72px;
 
+  top: -31px;
   left: 50%;
-  top: 5px;
 
-  transform: translateX(-50%);
-
-  transition: transform 0.8s ease;
+  transform:
+    translateX(-50%)
+    scale(
+      var(--flower-scale)
+    );
 }
 
-.petal {
+.plant-petal {
   position: absolute;
 
-  width: 52px;
-  height: 52px;
+  width: 38px;
+  height: 38px;
 
-  background: #e9b7bd;
+  border-radius:
+    60%
+    60%
+    48%
+    48%;
 
-  border-radius: 60% 60% 45% 45%;
-
-  transition:
-    background 0.8s ease,
-    transform 0.8s ease;
+  background:
+    var(--flower);
 }
 
-.petal-1 {
-  left: 24px;
+.plant-petal.p1 {
+  left: 17px;
   top: 0;
 }
 
-.petal-2 {
+.plant-petal.p2 {
   right: 0;
-  top: 26px;
+  top: 17px;
 
-  transform: rotate(90deg);
+  transform:
+    rotate(90deg);
 }
 
-.petal-3 {
-  left: 24px;
+.plant-petal.p3 {
+  left: 17px;
   bottom: 0;
 
-  transform: rotate(180deg);
+  transform:
+    rotate(180deg);
 }
 
-.petal-4 {
+.plant-petal.p4 {
   left: 0;
-  top: 26px;
+  top: 17px;
 
-  transform: rotate(-90deg);
+  transform:
+    rotate(-90deg);
 }
 
-.flower-center {
+.plant-center {
   position: absolute;
 
-  width: 36px;
-  height: 36px;
+  width: 27px;
+  height: 27px;
 
-  left: 32px;
-  top: 32px;
+  left: 22px;
+  top: 22px;
 
   border-radius: 50%;
 
-  background: #e0bf78;
+  background: #e2c47a;
 }
 
 
-/* ----------------
-   Soil
----------------- */
+/* =========================
+   PLANT MOVEMENT
+========================= */
 
-.soil {
+.plant-inner {
   position: absolute;
 
-  bottom: 25px;
+  width: 100%;
+  height: 100%;
 
-  width: 220px;
-  height: 34px;
+  bottom: 0;
 
-  border-radius: 50%;
+  transform-origin:
+    center
+    bottom;
 
-  background: #d8c9b2;
+  animation:
+    sway
+    var(--sway-speed)
+    ease-in-out
+    infinite;
 }
 
 
-/* ----------------
-   Animation
----------------- */
+/* =========================
+   CONTROLS
+========================= */
 
-@keyframes sway {
+.control-panel {
+  display: grid;
+
+  grid-template-columns:
+    1.5fr
+    1fr
+    auto;
+
+  gap: 42px;
+
+  align-items: center;
+
+  padding:
+    30px
+    36px;
+
+  border-top:
+    1px
+    solid
+    #deddd4;
+
+  background:
+    rgba(
+      250,
+      249,
+      244,
+      0.95
+    );
+}
+
+.control-label {
+  margin:
+    0
+    0
+    12px;
+
+  font-size: 13px;
+
+  color: #777d76;
+}
+
+
+/* mood buttons */
+
+.mood-buttons {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.mood-button {
+  padding:
+    10px
+    15px;
+
+  border:
+    1px
+    solid
+    #ced2c9;
+
+  border-radius:
+    999px;
+
+  background:
+    transparent;
+
+  color: #4d554d;
+
+  cursor: pointer;
+
+  transition:
+    0.2s ease;
+}
+
+.mood-button:hover {
+  background: #eef1e8;
+}
+
+.mood-button.selected {
+  border-color: #bfd2bb;
+
+  background: #dce9d8;
+
+  color: #304332;
+}
+
+
+/* =========================
+   INTENSITY
+========================= */
+
+.intensity-header {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  margin-bottom: 12px;
+
+  font-size: 13px;
+
+  color: #777d76;
+}
+
+#intensity {
+  width: 100%;
+
+  accent-color:
+    #89aa87;
+}
+
+.range-labels {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  margin-top: 6px;
+
+  font-size: 10px;
+
+  color: #a0a39c;
+}
+
+
+/* =========================
+   GROW BUTTON
+========================= */
+
+.grow-button {
+  min-width: 180px;
+
+  padding:
+    15px
+    22px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background: #293029;
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  transition:
+    transform
+    0.2s ease,
+    opacity
+    0.2s ease;
+}
+
+.grow-button:hover {
+  transform:
+    translateY(-2px);
+}
+
+
+/* =========================
+   FEEDBACK
+========================= */
+
+.feedback-row {
+  display: flex;
+
+  justify-content:
+    space-between;
+
+  align-items: center;
+
+  padding:
+    15px
+    36px
+    20px;
+
+  background:
+    #faf9f4;
+
+  color:
+    #81867e;
+
+  font-size:
+    12px;
+}
+
+.message,
+.plant-count {
+  margin: 0;
+}
+
+
+/* =========================
+   ANIMATIONS
+========================= */
+
+@keyframes growIn {
+
   0% {
-    transform: rotate(-2deg);
-  }
+    opacity: 0;
 
-  50% {
-    transform: rotate(2deg);
+    transform:
+      translateY(35px)
+      scale(0.15);
   }
 
   100% {
-    transform: rotate(-2deg);
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
   }
 }
 
 
-/* ----------------
-   Responsive
----------------- */
+@keyframes sway {
 
-@media (max-width: 760px) {
+  0% {
+    transform:
+      rotate(-2deg);
+  }
+
+  50% {
+    transform:
+      rotate(2deg);
+  }
+
+  100% {
+    transform:
+      rotate(-2deg);
+  }
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 850px) {
 
   .page {
-    padding: 40px 0;
-  }
+    width:
+      min(
+        100% - 24px,
+        1320px
+      );
 
-  .garden-card {
-    grid-template-columns: 1fr;
-  }
-
-  .controls {
-    border-right: none;
-    border-bottom: 1px solid #deddd5;
+    padding-top:
+      32px;
   }
 
   .garden {
-    min-height: 440px;
+    height: 480px;
   }
+
+  .control-panel {
+    grid-template-columns:
+      1fr;
+
+    gap: 25px;
+  }
+
+  .grow-button {
+    width: 100%;
+  }
+
 }

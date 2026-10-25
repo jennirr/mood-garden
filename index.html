@@ -13,55 +13,87 @@
 
   <main class="page">
 
-    <section class="intro">
-      <p class="eyebrow">MOOD GARDEN</p>
+    <!-- Header -->
+    <header class="intro">
 
-      <h1>How are you feeling today?</h1>
+      <p class="eyebrow">
+        MOOD GARDEN
+      </p>
+
+      <h1>
+        Grow what you feel.
+      </h1>
 
       <p class="description">
-        Choose a mood and grow a plant that reflects how you feel.
+        Every feeling becomes a plant.
+        Keep growing to see your mood garden change over time.
       </p>
-    </section>
+
+    </header>
 
 
-    <section class="garden-card">
+    <!-- Main Garden -->
+    <section class="garden-section">
 
-      <!-- Mood selection -->
-      <div class="controls">
+      <div id="garden" class="garden">
 
-        <p class="label">Choose your mood</p>
+        <div class="sun-glow"></div>
 
-        <div class="mood-buttons">
+        <div class="hill hill-back"></div>
+        <div class="hill hill-front"></div>
 
-          <button class="mood-button" data-mood="calm">
-            Calm
-          </button>
+        <div id="empty-message" class="empty-message">
+          <span>Your garden is waiting.</span>
+          <p>Choose a feeling and plant your first mood.</p>
+        </div>
 
-          <button class="mood-button" data-mood="happy">
-            Happy
-          </button>
+        <div id="plants-layer" class="plants-layer"></div>
 
-          <button class="mood-button" data-mood="tired">
-            Tired
-          </button>
+      </div>
 
-          <button class="mood-button" data-mood="anxious">
-            Anxious
-          </button>
 
-          <button class="mood-button" data-mood="excited">
-            Excited
-          </button>
+      <!-- Bottom controls -->
+      <div class="control-panel">
+
+        <div class="control-left">
+
+          <p class="control-label">
+            How are you feeling?
+          </p>
+
+          <div class="mood-buttons">
+
+            <button class="mood-button" data-mood="calm">
+              Calm
+            </button>
+
+            <button class="mood-button" data-mood="happy">
+              Happy
+            </button>
+
+            <button class="mood-button" data-mood="tired">
+              Tired
+            </button>
+
+            <button class="mood-button" data-mood="anxious">
+              Anxious
+            </button>
+
+            <button class="mood-button" data-mood="excited">
+              Excited
+            </button>
+
+          </div>
 
         </div>
 
 
-        <!-- Intensity -->
-        <div class="intensity-control">
+        <div class="control-middle">
 
-          <label for="intensity">
-            Mood intensity
-          </label>
+          <div class="intensity-header">
+            <span>Mood intensity</span>
+            <span id="intensity-value">3 / 5</span>
+          </div>
 
           <input
             type="range"
@@ -72,47 +104,34 @@
           >
 
           <div class="range-labels">
-            <span>Low</span>
-            <span>High</span>
+            <span>soft</span>
+            <span>strong</span>
           </div>
 
         </div>
 
 
-        <button id="grow-button" class="grow-button">
-          Grow my plant
-        </button>
+        <div class="control-right">
+
+          <button id="grow-button" class="grow-button">
+            Grow a feeling
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- Feedback -->
+      <div class="feedback-row">
 
         <p id="message" class="message">
           Choose a mood to begin.
         </p>
 
-      </div>
-
-
-      <!-- Plant -->
-      <div class="garden">
-
-        <div id="plant" class="plant">
-
-          <div class="flower">
-            <div class="petal petal-1"></div>
-            <div class="petal petal-2"></div>
-            <div class="petal petal-3"></div>
-            <div class="petal petal-4"></div>
-            <div class="flower-center"></div>
-          </div>
-
-          <div class="stem">
-
-            <div class="leaf leaf-left"></div>
-            <div class="leaf leaf-right"></div>
-
-          </div>
-
-        </div>
-
-        <div class="soil"></div>
+        <p id="plant-count" class="plant-count">
+          0 plants growing
+        </p>
 
       </div>
 
