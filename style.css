@@ -195,15 +195,24 @@ h1 {
 .camera-hint {
   position: absolute;
 
-  z-index: 5;
+  z-index: 10;
 
-  right: 18px;
+  right: 22px;
 
-  bottom: 16px;
+  bottom: 18px;
 
   padding:
-    7px
-    12px;
+    10px
+    16px;
+
+  border:
+    1px solid
+    rgba(
+      105,
+      122,
+      103,
+      0.18
+    );
 
   border-radius: 999px;
 
@@ -212,15 +221,30 @@ h1 {
       250,
       249,
       244,
-      0.75
+      0.92
     );
 
   backdrop-filter:
-    blur(8px);
+    blur(10px);
 
-  font-size: 10px;
+  box-shadow:
+    0
+    4px
+    16px
+    rgba(
+      58,
+      70,
+      56,
+      0.08
+    );
 
-  color: #868c84;
+  font-size: 12px;
+
+  font-weight: 600;
+
+  color: #5f705f;
+
+  letter-spacing: 0.01em;
 
   pointer-events: none;
 }
@@ -249,8 +273,7 @@ h1 {
   border-top:
     1px solid #deddd4;
 
-  background:
-    #faf9f4;
+  background: #faf9f4;
 }
 
 
@@ -337,6 +360,8 @@ h1 {
 
   align-items: center;
 
+  gap: 16px;
+
   margin-bottom: 12px;
 
   font-size: 13px;
@@ -346,6 +371,8 @@ h1 {
 
 
 .intensity-value {
+  flex-shrink: 0;
+
   padding:
     5px
     10px;
@@ -510,6 +537,19 @@ h1 {
     flex-direction: column;
 
     align-items: flex-start;
+  }
+
+
+  .camera-hint {
+    right: 14px;
+
+    bottom: 14px;
+
+    padding:
+      9px
+      13px;
+
+    font-size: 11px;
   }
 
 }
