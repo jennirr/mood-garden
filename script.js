@@ -10,48 +10,31 @@ import {
 ================================================== */
 
 const container =
-  document.querySelector(
-    "#garden-canvas"
-  );
+  document.querySelector("#garden-canvas");
 
 const moodButtons =
-  document.querySelectorAll(
-    ".mood-button"
-  );
+  document.querySelectorAll(".mood-button");
 
 const growButton =
-  document.querySelector(
-    "#grow-button"
-  );
+  document.querySelector("#grow-button");
 
 const intensitySlider =
-  document.querySelector(
-    "#intensity"
-  );
+  document.querySelector("#intensity");
 
 const intensityValue =
-  document.querySelector(
-    "#intensity-value"
-  );
+  document.querySelector("#intensity-value");
 
 const message =
-  document.querySelector(
-    "#message"
-  );
+  document.querySelector("#message");
 
 const plantCountText =
-  document.querySelector(
-    "#plant-count"
-  );
+  document.querySelector("#plant-count");
 
 const emptyMessage =
-  document.querySelector(
-    "#empty-message"
-  );
+  document.querySelector("#empty-message");
 
 
 let selectedMood = null;
-
 let plantCount = 0;
 
 
@@ -74,7 +57,7 @@ const intensityScale = {
 
 
 /* ==================================================
-   MOOD SETTINGS
+   MOODS
 ================================================== */
 
 const moods = {
@@ -84,51 +67,42 @@ const moods = {
     leaf: 0x8eaf98,
     stem: 0x718d79,
     center: 0xe1c77f,
-
     message:
       "A quiet feeling has taken root."
   },
-
 
   happy: {
     flower: 0xf3c769,
     leaf: 0x8fb27f,
     stem: 0x73966d,
     center: 0xae7e43,
-
     message:
       "A little happiness is blooming."
   },
-
 
   tired: {
     flower: 0xb8adc4,
     leaf: 0x879488,
     stem: 0x747f75,
     center: 0xc4aa80,
-
     message:
       "This feeling is resting for a while."
   },
-
 
   anxious: {
     flower: 0xd6a8bb,
     leaf: 0x789c8a,
     stem: 0x668575,
     center: 0xc79e76,
-
     message:
       "A restless feeling found room to grow."
   },
-
 
   excited: {
     flower: 0xf0a7b3,
     leaf: 0x79aa72,
     stem: 0x668e63,
     center: 0xe6b950,
-
     message:
       "Energy is spreading through your garden."
   }
@@ -137,7 +111,7 @@ const moods = {
 
 
 /* ==================================================
-   THREE.JS SCENE
+   SCENE
 ================================================== */
 
 const scene =
@@ -145,9 +119,7 @@ const scene =
 
 
 scene.background =
-  new THREE.Color(
-    0xf6f2ea
-  );
+  new THREE.Color(0xf6f2ea);
 
 
 scene.fog =
@@ -165,13 +137,9 @@ scene.fog =
 const camera =
   new THREE.PerspectiveCamera(
     38,
-
-    container.clientWidth
-      /
+    container.clientWidth /
       container.clientHeight,
-
     0.1,
-
     100
   );
 
@@ -207,9 +175,7 @@ renderer.setSize(
 );
 
 
-renderer.shadowMap.enabled =
-  true;
-
+renderer.shadowMap.enabled = true;
 
 renderer.shadowMap.type =
   THREE.PCFSoftShadowMap;
@@ -233,7 +199,7 @@ container.prepend(
 
 
 /* ==================================================
-   ORBIT CONTROLS
+   CONTROLS
 ================================================== */
 
 const controls =
@@ -250,29 +216,16 @@ controls.target.set(
 );
 
 
-controls.enableDamping =
-  true;
+controls.enableDamping = true;
+controls.dampingFactor = 0.06;
 
+controls.enablePan = false;
 
-controls.dampingFactor =
-  0.06;
-
-
-controls.enablePan =
-  false;
-
-
-controls.minDistance =
-  8;
-
-
-controls.maxDistance =
-  18;
-
+controls.minDistance = 8;
+controls.maxDistance = 18;
 
 controls.minPolarAngle =
   Math.PI * 0.20;
-
 
 controls.maxPolarAngle =
   Math.PI * 0.47;
@@ -282,7 +235,7 @@ controls.update();
 
 
 /* ==================================================
-   LIGHTING
+   LIGHT
 ================================================== */
 
 const hemisphereLight =
@@ -312,8 +265,7 @@ sunlight.position.set(
 );
 
 
-sunlight.castShadow =
-  true;
+sunlight.castShadow = true;
 
 
 sunlight.shadow.mapSize.set(
@@ -322,17 +274,10 @@ sunlight.shadow.mapSize.set(
 );
 
 
-sunlight.shadow.camera.left =
-  -12;
-
-sunlight.shadow.camera.right =
-  12;
-
-sunlight.shadow.camera.top =
-  12;
-
-sunlight.shadow.camera.bottom =
-  -12;
+sunlight.shadow.camera.left = -12;
+sunlight.shadow.camera.right = 12;
+sunlight.shadow.camera.top = 12;
+sunlight.shadow.camera.bottom = -12;
 
 
 scene.add(
@@ -341,7 +286,7 @@ scene.add(
 
 
 /* ==================================================
-   MATERIAL HELPER
+   MATERIAL
 ================================================== */
 
 function makeMaterial(
@@ -350,10 +295,8 @@ function makeMaterial(
 ) {
 
   return new THREE.MeshStandardMaterial({
-    color: color,
-
-    roughness: roughness,
-
+    color,
+    roughness,
     metalness: 0
   });
 
@@ -390,8 +333,7 @@ ground.scale.set(
 );
 
 
-ground.receiveShadow =
-  true;
+ground.receiveShadow = true;
 
 
 scene.add(
@@ -400,7 +342,7 @@ scene.add(
 
 
 /* ==================================================
-   SOFT HILLS
+   HILLS
 ================================================== */
 
 function createHill(
@@ -440,8 +382,7 @@ function createHill(
   );
 
 
-  hill.receiveShadow =
-    true;
+  hill.receiveShadow = true;
 
 
   scene.add(
@@ -490,9 +431,9 @@ function createStem(
 
       new THREE.CylinderGeometry(
         radius,
-        radius * 1.1,
+        radius * 1.08,
         height,
-        10
+        12
       ),
 
       makeMaterial(
@@ -506,8 +447,87 @@ function createStem(
     height / 2;
 
 
-  stem.castShadow =
-    true;
+  stem.castShadow = true;
+
+
+  return stem;
+}
+
+
+/* ==================================================
+   CONNECT TWO POINTS WITH A STEM
+
+   Used especially for the tired flower neck.
+================================================== */
+
+function createStemBetween(
+  start,
+  end,
+  radius,
+  color
+) {
+
+  const direction =
+    new THREE.Vector3()
+      .subVectors(
+        end,
+        start
+      );
+
+
+  const length =
+    direction.length();
+
+
+  const stem =
+    new THREE.Mesh(
+
+      new THREE.CylinderGeometry(
+        radius,
+        radius,
+        length,
+        12
+      ),
+
+      makeMaterial(
+        color,
+        0.9
+      )
+    );
+
+
+  const midpoint =
+    new THREE.Vector3()
+      .addVectors(
+        start,
+        end
+      )
+      .multiplyScalar(
+        0.5
+      );
+
+
+  stem.position.copy(
+    midpoint
+  );
+
+
+  stem.quaternion.setFromUnitVectors(
+
+    new THREE.Vector3(
+      0,
+      1,
+      0
+    ),
+
+    direction
+      .clone()
+      .normalize()
+
+  );
+
+
+  stem.castShadow = true;
 
 
   return stem;
@@ -528,8 +548,8 @@ function createLeaf(
 
       new THREE.SphereGeometry(
         0.42,
-        18,
-        12
+        24,
+        16
       ),
 
       makeMaterial(
@@ -540,14 +560,13 @@ function createLeaf(
 
 
   leaf.scale.set(
-    1.5 * scale,
+    1.45 * scale,
     0.18 * scale,
-    0.58 * scale
+    0.52 * scale
   );
 
 
-  leaf.castShadow =
-    true;
+  leaf.castShadow = true;
 
 
   return leaf;
@@ -567,9 +586,9 @@ function createRoundLeaf(
     new THREE.Mesh(
 
       new THREE.SphereGeometry(
-        0.32,
-        18,
-        14
+        0.34,
+        22,
+        16
       ),
 
       makeMaterial(
@@ -580,14 +599,13 @@ function createRoundLeaf(
 
 
   leaf.scale.set(
-    1.15 * scale,
+    1.0 * scale,
     0.25 * scale,
-    scale
+    0.86 * scale
   );
 
 
-  leaf.castShadow =
-    true;
+  leaf.castShadow = true;
 
 
   return leaf;
@@ -599,34 +617,38 @@ function createRoundLeaf(
 ================================================== */
 
 function createPetal(
-  color
+  color,
+  size = 1
 ) {
 
   const petal =
     new THREE.Mesh(
 
       new THREE.SphereGeometry(
-        0.38,
-        20,
-        14
+        0.36,
+        24,
+        16
       ),
 
       makeMaterial(
         color,
-        0.75
+        0.72
       )
     );
 
 
+  /*
+    Larger petals than previous version.
+  */
+
   petal.scale.set(
-    0.62,
-    0.28,
-    1.25
+    0.48 * size,
+    0.22 * size,
+    1.00 * size
   );
 
 
-  petal.castShadow =
-    true;
+  petal.castShadow = true;
 
 
   return petal;
@@ -635,6 +657,8 @@ function createPetal(
 
 /* ==================================================
    FLOWER
+
+   Smaller center + larger petals.
 ================================================== */
 
 function createFlower(
@@ -648,6 +672,48 @@ function createFlower(
     new THREE.Group();
 
 
+  /*
+    Smaller flower centre.
+  */
+
+  const centerRadius =
+    0.20 * size;
+
+
+  const center =
+    new THREE.Mesh(
+
+      new THREE.SphereGeometry(
+        centerRadius,
+        28,
+        20
+      ),
+
+      makeMaterial(
+        centerColor,
+        0.72
+      )
+    );
+
+
+  center.castShadow = true;
+
+
+  flower.add(
+    center
+  );
+
+
+  /*
+    Petal root overlaps the centre slightly,
+    so they visually grow out of the sphere.
+  */
+
+  const petalDistance =
+    centerRadius +
+    0.25 * size;
+
+
   for (
     let i = 0;
     i < petalCount;
@@ -655,45 +721,40 @@ function createFlower(
   ) {
 
     const angle =
-      i
-      /
-      petalCount
+      (
+        i /
+        petalCount
+      )
       *
-      Math.PI
-      *
+      Math.PI *
       2;
 
 
     const petal =
       createPetal(
-        flowerColor
+        flowerColor,
+        size
       );
 
 
-    petal.scale.multiplyScalar(
-      size
-    );
-
-
     petal.position.set(
-      Math.cos(angle)
-        *
-        0.36
-        *
-        size,
 
-      0,
+      Math.sin(angle) *
+        petalDistance,
 
-      Math.sin(angle)
-        *
-        0.36
-        *
-        size
+      -0.015 * size,
+
+      Math.cos(angle) *
+        petalDistance
     );
 
 
     petal.rotation.y =
-      -angle;
+      angle;
+
+
+    petal.rotation.x =
+      -0.13;
 
 
     flower.add(
@@ -703,42 +764,12 @@ function createFlower(
   }
 
 
-  const center =
-    new THREE.Mesh(
-
-      new THREE.SphereGeometry(
-        0.26 * size,
-        20,
-        14
-      ),
-
-      makeMaterial(
-        centerColor,
-        0.75
-      )
-    );
-
-
-  center.scale.y =
-    0.65;
-
-
-  center.castShadow =
-    true;
-
-
-  flower.add(
-    center
-  );
-
-
   return flower;
 }
 
 
 /* ==================================================
    CALM
-   Rounded eucalyptus-like plant
 ================================================== */
 
 function createCalmPlant(
@@ -754,30 +785,23 @@ function createCalmPlant(
 
 
   const height =
-    1.65
-    +
-    intensity
-    *
-    0.25;
+    1.65 +
+    intensity * 0.25;
 
 
-  const stem =
+  group.add(
+
     createStem(
       height,
       0.055,
       colors.stem
-    );
+    )
 
-
-  group.add(
-    stem
   );
 
 
   const numberOfPairs =
-    2
-    +
-    intensity;
+    2 + intensity;
 
 
   for (
@@ -787,29 +811,26 @@ function createCalmPlant(
   ) {
 
     const y =
-      0.5
-      +
-      i
-      *
-      0.35;
+      0.50 +
+      i * 0.35;
 
 
     const left =
       createRoundLeaf(
         colors.leaf,
-        0.9
+        0.88
       );
 
 
     left.position.set(
-      -0.28,
+      -0.35,
       y,
       0
     );
 
 
     left.rotation.z =
-      -0.25;
+      -0.18;
 
 
     group.add(
@@ -820,19 +841,19 @@ function createCalmPlant(
     const right =
       createRoundLeaf(
         colors.leaf,
-        0.9
+        0.88
       );
 
 
     right.position.set(
-      0.28,
-      y + 0.12,
+      0.35,
+      y + 0.14,
       0
     );
 
 
     right.rotation.z =
-      0.25;
+      0.18;
 
 
     group.add(
@@ -847,12 +868,12 @@ function createCalmPlant(
       colors.flower,
       colors.center,
       5,
-      0.65
+      0.62
     );
 
 
   flower.position.y =
-    height + 0.05;
+    height + 0.10;
 
 
   group.add(
@@ -866,7 +887,6 @@ function createCalmPlant(
 
 /* ==================================================
    HAPPY
-   Big open flower
 ================================================== */
 
 function createHappyPlant(
@@ -882,19 +902,18 @@ function createHappyPlant(
 
 
   const height =
-    1.8
-    +
-    intensity
-    *
-    0.32;
+    1.80 +
+    intensity * 0.32;
 
 
   group.add(
+
     createStem(
       height,
       0.065,
       colors.stem
     )
+
   );
 
 
@@ -903,16 +922,13 @@ function createHappyPlant(
       colors.flower,
       colors.center,
       8,
-      1.0
-      +
-      intensity
-      *
-      0.08
+      0.88 +
+      intensity * 0.05
     );
 
 
   flower.position.y =
-    height + 0.05;
+    height + 0.12;
 
 
   group.add(
@@ -928,14 +944,14 @@ function createHappyPlant(
 
 
   left.position.set(
-    -0.4,
+    -0.48,
     height * 0.45,
     0
   );
 
 
   left.rotation.z =
-    -0.35;
+    -0.32;
 
 
   group.add(
@@ -951,14 +967,14 @@ function createHappyPlant(
 
 
   right.position.set(
-    0.4,
+    0.48,
     height * 0.62,
     0
   );
 
 
   right.rotation.z =
-    0.35;
+    0.32;
 
 
   group.add(
@@ -972,7 +988,6 @@ function createHappyPlant(
 
 /* ==================================================
    TIRED
-   Drooping plant
 ================================================== */
 
 function createTiredPlant(
@@ -987,57 +1002,114 @@ function createTiredPlant(
     new THREE.Group();
 
 
-  const height =
-    1.55
-    +
-    intensity
-    *
-    0.22;
+  /*
+    Main vertical stem.
+  */
+
+  const mainHeight =
+    1.45 +
+    intensity * 0.22;
 
 
-  const stem =
+  const mainStem =
     createStem(
-      height,
+      mainHeight,
       0.06,
       colors.stem
     );
 
 
-  stem.rotation.z =
-    0.15;
+  group.add(
+    mainStem
+  );
 
 
-  stem.position.x =
-    0.12;
+  /*
+    Create a bent neck that ACTUALLY connects
+    main stem to the flower centre.
+  */
+
+  const neckStart =
+    new THREE.Vector3(
+      0,
+      mainHeight - 0.03,
+      0
+    );
+
+
+  const neckMiddle =
+    new THREE.Vector3(
+      0.18,
+      mainHeight + 0.22,
+      0
+    );
+
+
+  const flowerPosition =
+    new THREE.Vector3(
+      0.42,
+      mainHeight + 0.28,
+      0
+    );
+
+
+  const neck1 =
+    createStemBetween(
+      neckStart,
+      neckMiddle,
+      0.055,
+      colors.stem
+    );
 
 
   group.add(
-    stem
+    neck1
   );
 
+
+  const neck2 =
+    createStemBetween(
+      neckMiddle,
+      flowerPosition,
+      0.05,
+      colors.stem
+    );
+
+
+  group.add(
+    neck2
+  );
+
+
+  /*
+    Flower centre now sits exactly at
+    the end of the curved stem.
+  */
 
   const flower =
     createFlower(
       colors.flower,
       colors.center,
       5,
-      0.82
+      0.76
     );
 
 
-  flower.position.set(
-    0.28,
-    height - 0.02,
-    0
+  flower.position.copy(
+    flowerPosition
   );
 
 
+  /*
+    Tired flower looks downward.
+  */
+
   flower.rotation.z =
-    -0.7;
+    -0.46;
 
 
   flower.rotation.x =
-    0.35;
+    0.26;
 
 
   group.add(
@@ -1045,22 +1117,26 @@ function createTiredPlant(
   );
 
 
+  /*
+    Drooping leaves.
+  */
+
   const leaf1 =
     createLeaf(
       colors.leaf,
-      0.9
+      0.88
     );
 
 
   leaf1.position.set(
-    -0.28,
-    height * 0.43,
+    -0.40,
+    mainHeight * 0.46,
     0
   );
 
 
   leaf1.rotation.z =
-    -0.75;
+    -0.60;
 
 
   group.add(
@@ -1071,19 +1147,19 @@ function createTiredPlant(
   const leaf2 =
     createLeaf(
       colors.leaf,
-      0.8
+      0.78
     );
 
 
   leaf2.position.set(
-    0.35,
-    height * 0.28,
+    0.42,
+    mainHeight * 0.28,
     0
   );
 
 
   leaf2.rotation.z =
-    0.8;
+    0.60;
 
 
   group.add(
@@ -1097,7 +1173,6 @@ function createTiredPlant(
 
 /* ==================================================
    ANXIOUS
-   Thin lavender-like plant
 ================================================== */
 
 function createAnxiousPlant(
@@ -1113,26 +1188,23 @@ function createAnxiousPlant(
 
 
   const height =
-    1.95
-    +
-    intensity
-    *
-    0.38;
+    1.95 +
+    intensity * 0.38;
 
 
   group.add(
+
     createStem(
       height,
       0.035,
       colors.stem
     )
+
   );
 
 
   const pairs =
-    3
-    +
-    intensity;
+    3 + intensity;
 
 
   for (
@@ -1142,33 +1214,30 @@ function createAnxiousPlant(
   ) {
 
     const y =
-      0.45
-      +
-      i
-      *
-      0.30;
+      0.45 +
+      i * 0.30;
 
 
     const left =
       createLeaf(
         colors.leaf,
-        0.55
+        0.48
       );
 
 
     left.scale.z *=
-      0.45;
+      0.48;
 
 
     left.position.set(
-      -0.28,
+      -0.30,
       y,
       0
     );
 
 
     left.rotation.z =
-      -0.35;
+      -0.32;
 
 
     group.add(
@@ -1179,23 +1248,23 @@ function createAnxiousPlant(
     const right =
       createLeaf(
         colors.leaf,
-        0.55
+        0.48
       );
 
 
     right.scale.z *=
-      0.45;
+      0.48;
 
 
     right.position.set(
-      0.28,
+      0.30,
       y + 0.13,
       0
     );
 
 
     right.rotation.z =
-      0.35;
+      0.32;
 
 
     group.add(
@@ -1210,11 +1279,8 @@ function createAnxiousPlant(
 
 
   const count =
-    5
-    +
-    intensity
-    *
-    2;
+    5 +
+    intensity * 2;
 
 
   for (
@@ -1227,14 +1293,14 @@ function createAnxiousPlant(
       new THREE.Mesh(
 
         new THREE.SphereGeometry(
-          0.1,
-          12,
+          0.085,
+          14,
           10
         ),
 
         makeMaterial(
           colors.flower,
-          0.8
+          0.78
         )
       );
 
@@ -1244,22 +1310,18 @@ function createAnxiousPlant(
 
 
     bloom.position.set(
-      Math.cos(angle)
-        *
-        0.13,
 
-      i
-        *
-        0.095,
+      Math.cos(angle) *
+        0.16,
 
-      Math.sin(angle)
-        *
-        0.13
+      i * 0.13,
+
+      Math.sin(angle) *
+        0.16
     );
 
 
-    bloom.castShadow =
-      true;
+    bloom.castShadow = true;
 
 
     flowerCluster.add(
@@ -1270,7 +1332,7 @@ function createAnxiousPlant(
 
 
   flowerCluster.position.y =
-    height;
+    height + 0.08;
 
 
   group.add(
@@ -1284,7 +1346,6 @@ function createAnxiousPlant(
 
 /* ==================================================
    EXCITED
-   Branching multi-flower plant
 ================================================== */
 
 function createExcitedPlant(
@@ -1300,19 +1361,18 @@ function createExcitedPlant(
 
 
   const height =
-    1.85
-    +
-    intensity
-    *
-    0.32;
+    1.85 +
+    intensity * 0.32;
 
 
   group.add(
+
     createStem(
       height,
       0.055,
       colors.stem
     )
+
   );
 
 
@@ -1321,12 +1381,12 @@ function createExcitedPlant(
       colors.flower,
       colors.center,
       7,
-      0.92
+      0.84
     );
 
 
   topFlower.position.y =
-    height;
+    height + 0.12;
 
 
   group.add(
@@ -1351,53 +1411,41 @@ function createExcitedPlant(
 
 
     const branchHeight =
-      0.75
-      +
-      i
-      *
-      0.42;
+      0.80 +
+      i * 0.44;
 
 
-    const branchLength =
-      0.72;
+    const branchEnd =
+      new THREE.Vector3(
 
+        direction *
+          (
+            0.66 +
+            i * 0.04
+          ),
 
-    const branch =
-      new THREE.Mesh(
+        branchHeight +
+          0.36,
 
-        new THREE.CylinderGeometry(
-          0.03,
-          0.04,
-          branchLength,
-          8
-        ),
-
-        makeMaterial(
-          colors.stem,
-          0.9
-        )
+        0
       );
 
 
-    branch.rotation.z =
-      direction
-      *
-      -0.85;
+    const branchStart =
+      new THREE.Vector3(
+        0,
+        branchHeight,
+        0
+      );
 
 
-    branch.position.set(
-      direction
-        *
-        0.22,
-
-      branchHeight,
-
-      0
-    );
-
-
-    branch.castShadow =
-      true;
+    const branch =
+      createStemBetween(
+        branchStart,
+        branchEnd,
+        0.035,
+        colors.stem
+      );
 
 
     group.add(
@@ -1410,20 +1458,12 @@ function createExcitedPlant(
         colors.flower,
         colors.center,
         6,
-        0.62
+        0.50
       );
 
 
-    smallFlower.position.set(
-      direction
-        *
-        0.52,
-
-      branchHeight
-        +
-        0.28,
-
-      0
+    smallFlower.position.copy(
+      branchEnd
     );
 
 
@@ -1437,19 +1477,19 @@ function createExcitedPlant(
   const left =
     createLeaf(
       colors.leaf,
-      0.9
+      0.88
     );
 
 
   left.position.set(
-    -0.35,
-    height * 0.35,
+    -0.48,
+    height * 0.34,
     0
   );
 
 
   left.rotation.z =
-    -0.4;
+    -0.36;
 
 
   group.add(
@@ -1460,19 +1500,19 @@ function createExcitedPlant(
   const right =
     createLeaf(
       colors.leaf,
-      0.9
+      0.88
     );
 
 
   right.position.set(
-    0.35,
-    height * 0.53,
+    0.48,
+    height * 0.52,
     0
   );
 
 
   right.rotation.z =
-    0.4;
+    0.36;
 
 
   group.add(
@@ -1494,42 +1534,27 @@ function createMoodPlant(
 ) {
 
   if (mood === "calm") {
-    return createCalmPlant(
-      intensity
-    );
+    return createCalmPlant(intensity);
   }
-
 
   if (mood === "happy") {
-    return createHappyPlant(
-      intensity
-    );
+    return createHappyPlant(intensity);
   }
-
 
   if (mood === "tired") {
-    return createTiredPlant(
-      intensity
-    );
+    return createTiredPlant(intensity);
   }
-
 
   if (mood === "anxious") {
-    return createAnxiousPlant(
-      intensity
-    );
+    return createAnxiousPlant(intensity);
   }
 
-
-  return createExcitedPlant(
-    intensity
-  );
-
+  return createExcitedPlant(intensity);
 }
 
 
 /* ==================================================
-   PLANT POSITIONS
+   POSITIONS
 ================================================== */
 
 const gardenPositions = [];
@@ -1550,16 +1575,14 @@ for (
     gardenPositions.push({
 
       x:
-        x
-        +
+        x +
         randomBetween(
-          -0.2,
-          0.2
+          -0.20,
+          0.20
         ),
 
       z:
-        z
-        +
+        z +
         randomBetween(
           -0.18,
           0.18
@@ -1581,14 +1604,14 @@ let positionIndex = 0;
 
 
 /* ==================================================
-   PLANT STORAGE
+   PLANTS
 ================================================== */
 
 const plants = [];
 
 
 /* ==================================================
-   GROW PLANT
+   GROW
 ================================================== */
 
 function growPlant(
@@ -1597,8 +1620,7 @@ function growPlant(
 ) {
 
   if (
-    positionIndex
-    >=
+    positionIndex >=
     gardenPositions.length
   ) {
 
@@ -1627,26 +1649,23 @@ function growPlant(
 
   plant.position.set(
     position.x,
-    0.03,
+    0.06,
     position.z
   );
 
 
   plant.rotation.y =
     randomBetween(
-      -0.3,
-      0.3
+      -0.30,
+      0.30
     );
 
 
   const targetScale =
-    intensityScale[
-      intensity
-    ]
-    *
+    intensityScale[intensity] *
     randomBetween(
-      0.93,
-      1.06
+      0.95,
+      1.05
     );
 
 
@@ -1657,23 +1676,17 @@ function growPlant(
 
   plant.userData = {
 
-    mood:
-      mood,
+    mood,
+    intensity,
 
-    intensity:
-      intensity,
-
-    targetScale:
-      targetScale,
+    targetScale,
 
     born:
       performance.now(),
 
     phase:
-      Math.random()
-      *
-      Math.PI
-      *
+      Math.random() *
+      Math.PI *
       2
 
   };
@@ -1711,7 +1724,7 @@ function growPlant(
 
 
 /* ==================================================
-   MOOD BUTTONS
+   UI
 ================================================== */
 
 moodButtons.forEach(
@@ -1751,10 +1764,6 @@ moodButtons.forEach(
 );
 
 
-/* ==================================================
-   INTENSITY
-================================================== */
-
 intensitySlider.addEventListener(
   "input",
   () => {
@@ -1766,25 +1775,17 @@ intensitySlider.addEventListener(
 
 
     intensityValue.textContent =
-      intensityLabels[
-        value
-      ];
+      intensityLabels[value];
 
   }
 );
 
 
-/* ==================================================
-   GROW BUTTON
-================================================== */
-
 growButton.addEventListener(
   "click",
   () => {
 
-    if (
-      !selectedMood
-    ) {
+    if (!selectedMood) {
 
       message.textContent =
         "Choose a mood before growing a plant.";
@@ -1795,7 +1796,6 @@ growButton.addEventListener(
 
     growPlant(
       selectedMood,
-
       Number(
         intensitySlider.value
       )
@@ -1831,15 +1831,11 @@ function animate() {
   plants.forEach(
     (plant) => {
 
-      /* Growth */
-
       const age =
         (
-          now
-          -
+          now -
           plant.userData.born
-        )
-        /
+        ) /
         900;
 
 
@@ -1851,93 +1847,91 @@ function animate() {
 
 
       const eased =
-        1
-        -
+        1 -
         Math.pow(
           1 - growth,
           3
         );
 
 
-      const target =
-        plant.userData.targetScale;
-
-
       plant.scale.setScalar(
+
         Math.max(
           0.01,
-          target
-          *
+          plant.userData.targetScale *
           eased
         )
+
       );
 
 
-      /* Mood animation */
-
-      const mood =
-        plant.userData.mood;
-
-
       let speed = 0.7;
-
       let amount = 0.015;
 
 
-      if (mood === "calm") {
+      if (
+        plant.userData.mood ===
+        "calm"
+      ) {
 
         speed = 0.5;
-
         amount = 0.012;
 
       }
 
 
-      if (mood === "happy") {
+      if (
+        plant.userData.mood ===
+        "happy"
+      ) {
 
         speed = 0.85;
-
-        amount = 0.02;
+        amount = 0.020;
 
       }
 
 
-      if (mood === "tired") {
+      if (
+        plant.userData.mood ===
+        "tired"
+      ) {
 
-        speed = 0.3;
-
+        speed = 0.30;
         amount = 0.008;
 
       }
 
 
-      if (mood === "anxious") {
+      if (
+        plant.userData.mood ===
+        "anxious"
+      ) {
 
-        speed = 3;
-
+        speed = 3.0;
         amount = 0.026;
 
       }
 
 
-      if (mood === "excited") {
+      if (
+        plant.userData.mood ===
+        "excited"
+      ) {
 
         speed = 1.6;
-
         amount = 0.035;
 
       }
 
 
       plant.rotation.z =
+
         Math.sin(
-          elapsed
-          *
-          speed
-          +
+          elapsed *
+          speed +
           plant.userData.phase
-        )
-        *
+        ) *
+
         amount;
 
     }
@@ -1975,8 +1969,7 @@ window.addEventListener(
 
 
     camera.aspect =
-      width
-      /
+      width /
       height;
 
 
@@ -2002,13 +1995,10 @@ function randomBetween(
 ) {
 
   return (
-    min
-    +
-    Math.random()
-    *
+    min +
+    Math.random() *
     (
-      max
-      -
+      max -
       min
     )
   );
@@ -2031,8 +2021,7 @@ function shuffle(
 
     const j =
       Math.floor(
-        Math.random()
-        *
+        Math.random() *
         (
           i + 1
         )
