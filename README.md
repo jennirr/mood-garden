@@ -144,11 +144,7 @@ The current version has several limitations:
 
 ## Screenshot
 
-Add a screenshot of the final Mood Garden interface here.
-
-```markdown
 ![Mood Garden](images/mood-garden.png)
-```
 
 ## Credits
 
@@ -172,5 +168,3 @@ More details about the design process and AI usage are documented in `PROCESS.md
 Ranran Zeng
 
 PolyU SD5913  
-Programming for Artists and Designers  
-Assignment 3 — Interactive Experience
