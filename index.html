@@ -15,16 +15,21 @@
     rel="stylesheet"
     href="style.css"
   >
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 
 
 <body>
 
   <main class="page">
-
-    <!-- =========================
-         HEADER
-    ========================== -->
 
     <header class="intro">
 
@@ -38,31 +43,21 @@
 
       <p class="description">
         Every feeling becomes a plant.
-        Keep growing to see your mood garden
-        change over time.
+        Keep growing and watch your emotions
+        become a garden.
       </p>
 
     </header>
 
 
-    <!-- =========================
-         GARDEN
-    ========================== -->
-
     <section class="garden-section">
 
+      <!-- 3D garden -->
+
       <div
-        id="garden"
-        class="garden"
+        id="garden-canvas"
+        class="garden-canvas"
       >
-
-        <div class="sun-glow"></div>
-
-        <div class="hill hill-back"></div>
-        <div class="hill hill-front"></div>
-
-
-        <!-- Empty garden message -->
 
         <div
           id="empty-message"
@@ -74,36 +69,30 @@
           </span>
 
           <p>
-            Choose a feeling and plant your first mood.
+            Choose a feeling and grow your first plant.
           </p>
 
         </div>
 
 
-        <!-- Plants appear here -->
-
-        <div
-          id="plants-layer"
-          class="plants-layer"
-        ></div>
+        <div class="camera-hint">
+          Drag to explore · Scroll to zoom
+        </div>
 
       </div>
 
 
-      <!-- =========================
-           CONTROLS
-      ========================== -->
+      <!-- Controls -->
 
       <div class="control-panel">
 
-
-        <!-- Mood -->
 
         <div class="control-left">
 
           <p class="control-label">
             How are you feeling?
           </p>
+
 
           <div class="mood-buttons">
 
@@ -179,17 +168,11 @@
 
           <div class="range-labels">
 
-            <span>
-              Low
-            </span>
+            <span>Low</span>
 
-            <span>
-              Medium
-            </span>
+            <span>Medium</span>
 
-            <span>
-              High
-            </span>
+            <span>High</span>
 
           </div>
 
@@ -212,15 +195,14 @@
       </div>
 
 
-      <!-- =========================
-           FEEDBACK
-      ========================== -->
+      <!-- Feedback -->
 
       <div class="feedback-row">
 
         <p
           id="message"
           class="message"
+          aria-live="polite"
         >
           Choose a mood to begin.
         </p>
@@ -239,7 +221,10 @@
   </main>
 
 
-  <script src="script.js"></script>
+  <script
+    type="module"
+    src="script.js"
+  ></script>
 
 </body>
 
